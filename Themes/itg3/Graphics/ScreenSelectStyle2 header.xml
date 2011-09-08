@@ -1,7 +1,7 @@
 <ActorFrame>
 <children>
 <Layer
-File="_dinamic headers/ScreenSelectStyle2"
+File="_dynamic headers/ScreenSelectStyle2"
 OnCommand="x,SCREEN_CENTER_X;y,SCREEN_TOP+30;addx,-500;zoom,1.3;"
 
 /> 
