@@ -1,0 +1,1 @@
+return LoadFont("_big blue glow")..{Text="Welcome to the::tutorial program"}
