@@ -3,19 +3,14 @@ function SongModifiers()
 	if OPENITG then 
 		if GAMESTATE:GetPlayMode() == PLAY_MODE_REGULAR and not GAMESTATE:PlayerUsingBothSides() then
 			return "1,2,3,4,7,5,18,17,9,22,23,10,11,12,13,14,15,19,25,20,27,24,16" --normal gameplay, no doubles7
-			
 		elseif  GAMESTATE:GetPlayMode() == PLAY_MODE_REGULAR and GAMESTATE:PlayerUsingBothSides() then
 			return "1,2,3,4,7,5,18,17,9,23,10,11,12,13,14,15,19,25,20,27,24,16" --normal play, doubles
-		
 		elseif GAMESTATE:GetPlayMode() == PLAY_MODE_NONSTOP then
 			return "1,2,3,4,7,5,18,17,9,22,23,12,13,14,15,19,21,27,24,16"	--course
 		else
-			return "1,2,3,4,7,5,18,17,9,10,11,12,13,14,15,16" end --"survival/fallback"
-			
-	
+			return "1,2,3,4,7,5,18,17,9,10,11,12,13,14,15,16" --"survival/fallback"
+		end
 	else return "1,2,3,4,7,5,18,17,9,10,11,12,13,14,15,16" end --not running oitg
-	
-	
 end
 
 function oitgACoptions()
@@ -25,7 +20,7 @@ end
 
 function Platform() return "arcade" end
 
-function IsPIUIO() return GetInputType() == "PIUIO`" end
+function IsPIUIO() return GetInputType() == "PIUIO" end
 function IsITGIO() return GetInputType() == "ITGIO" end
 
 function IsArcadeIO() return IsPIUIO() or IsITGIO() end
@@ -35,15 +30,13 @@ function SelectButtonAvailable()
 end
 
 function ShowForITGIO( actor )
-	
-	if GetInputType() == "ITGIO" then actor:hidden(0) 
-	elseif GetInputType() == "Home" then actor:hidden(1)
+	if GetInputType() == "ITGIO" then actor:visible(1) 
+	elseif GetInputType() == "Home" then actor:visible(0)
 	end
 end
 
-
 function HideForITGIO( actor )
-	if GetInputType() == "ITGIO" then actor:hidden(1) end
+	if GetInputType() == "ITGIO" then actor:visible(0) end
 end
 
 
@@ -57,7 +50,7 @@ end
 
 function PIUIODisable( actor )
 if GetInputType() == "PIUIO" then
-		actor:hidden(1)
+		actor:visible(0)
 	end
 end
 
@@ -166,7 +159,7 @@ end
 function StarIcon( Actor,pn )
 local stars = StarAward( pn ); 
 Trace("stars: " .. stars);
-        if stars < 10 then Actor:hidden(1) end 
+        if stars < 10 then Actor:visible(0) end 
         if stars >= 10 then Actor:setstate(4) end 
         if stars >= 25 then Actor:setstate(5) end 
         if stars >= 50 then Actor:setstate(6) end 
@@ -177,7 +170,7 @@ end
 function QuadIcon( Actor,pn ) 
 local quads = QuadAward( pn ); 
 Trace("quads: " .. quads);
-        if quads < 10 then Actor:hidden(1) end 
+        if quads < 10 then Actor:visible(0) end 
         if quads >= 10 then Actor:setstate(8) end 
         if quads >= 25 then Actor:setstate(9) end 
         if quads >= 50 then Actor:setstate(10) end 
@@ -190,7 +183,7 @@ end
 function PercentIcon( Actor,pn ) 
 local perc = PercentAward( pn ); 
 Trace("perc: " .. perc);
-        if perc < 500 then Actor:hidden(1) end 
+        if perc < 500 then Actor:visible(0) end 
         if perc >= 500 then Actor:setstate(0) end 
         if perc >= 2500 then Actor:setstate(1) end 
         if perc >= 7500 then Actor:setstate(2) end 
@@ -202,7 +195,7 @@ end
 function CalorieIcon( Actor,pn ) 
 local cals = CalorieAward( pn ); 
 Trace("cals: " .. cals);
-        if cals < 250 then Actor:hidden(1) end 
+        if cals < 250 then Actor:visible(0) end 
         if cals >= 250 then Actor:setstate(12) end 
         if cals >= 750 then Actor:setstate(13) end 
         if cals >= 1500 then Actor:setstate(14) end 
@@ -912,29 +905,28 @@ function P2Stepartist( actor )
 	local course = GAMESTATE:GetCurrentCourse();
 	local artist = GetStepsDescriptionTextP2();
 	local result = ""
+
 	if song then
-	actor:hidden(0)
+		actor:visible(1)
 		if artist == "" then
 			result = "Stepartist: Unknown"
 		else
 			result = "Stepartist: "..artist
 		end
-		
 	else
-	actor:hidden(1)
+		actor:visible(0)
 	end
-	if course then
-		result = ""
-	end
+	if course then result = "" end
+
 	if string.find(artist, "C. Foy") or string.find(artist, "Foy") then
 			actor:diffuseshift();
 			actor:effectclock("bgm");
 			actor:effectcolor1(1,.9,.9,1);
 			actor:effectcolor2(1,.75,.75,1);
 	else
-	actor:stopeffect()
+		actor:stopeffect()
 	end
-	
+
 	actor:settext( result )
 end
 
@@ -947,51 +939,46 @@ end
 --str = str ..  Values:GetValue( RADAR_CATEGORY_ROLLS ) .. "\n"
 --
 
-
 function Radar( Values, Cat )
-if not Values then return "" end
-local str = ""
+	if not Values then return "" end
+	local str = ""
 
-local CategoryDef = {
-RADAR_CATEGORY_JUMPS,
-RADAR_CATEGORY_HOLDS,
-RADAR_CATEGORY_MINES,
-RADAR_CATEGORY_HANDS,
-RADAR_CATEGORY_ROLLS,
-RADAR_CATEGORY_TAPS,
-}
+	local CategoryDef = {
+		RADAR_CATEGORY_JUMPS,
+		RADAR_CATEGORY_HOLDS,
+		RADAR_CATEGORY_MINES,
+		RADAR_CATEGORY_HANDS,
+		RADAR_CATEGORY_ROLLS,
+		RADAR_CATEGORY_TAPS,
+	}
 
-str = string.format("%03d", Values:GetValue( CategoryDef[Cat] ) )
+	str = string.format("%03d", Values:GetValue( CategoryDef[Cat] ) )
 
-return str
-
+	return str
 end
 
 
-
-
-
 function ColorRadar( player, Cat )
-if not player then return "" end
+	if not player then return "" end
 
-local val = ""
+	local val = ""
 
-local CategoryDef = {
-RADAR_CATEGORY_JUMPS,
-RADAR_CATEGORY_HOLDS,
-RADAR_CATEGORY_MINES,
-RADAR_CATEGORY_HANDS,
-RADAR_CATEGORY_ROLLS,
-RADAR_CATEGORY_TAPS
-}
+	local CategoryDef = {
+		RADAR_CATEGORY_JUMPS,
+		RADAR_CATEGORY_HOLDS,
+		RADAR_CATEGORY_MINES,
+		RADAR_CATEGORY_HANDS,
+		RADAR_CATEGORY_ROLLS,
+		RADAR_CATEGORY_TAPS
+	}
 
-local Selection = GAMESTATE:GetCurrentSteps( player ) or GAMESTATE:GetCurrentTrail( player )
+	local Selection = GAMESTATE:GetCurrentSteps( player ) or GAMESTATE:GetCurrentTrail( player )
 
-val = Selection:GetRadarValues():GetValue( CategoryDef[1] )
+	val = Selection:GetRadarValues():GetValue( CategoryDef[1] )
 
-if val <= 20 then return "diffuse,#FF0000" end
-if val < 20 then return "diffuse,#FFFF00" end
-return "diffuse,#FFFF00"
+	if val <= 20 then return "diffuse,#FF0000" end
+	if val < 20 then return "diffuse,#FFFF00" end
+	return "diffuse,#FFFF00"
 end
 
 function DemoName()
@@ -1004,80 +991,83 @@ function DemoName()
 end
 
 function HideOnDoubles()
-if GAMESTATE:PlayerUsingBothSides() then return "hidden,1;" end
+if GAMESTATE:PlayerUsingBothSides() then return "visible,0;" end
 return ""
 end
 
 function DoublesScoreCenterP1()
-if GAMESTATE:PlayerUsingBothSides() or CustomMods[PLAYER_1].solo == true then return "addx,SCREEN_WIDTH/4;" end
-return ""
+	if GAMESTATE:PlayerUsingBothSides() or CustomMods[PLAYER_1].solo == true then
+		return "addx,SCREEN_WIDTH/4;"
+	end
+	return ""
 end
 
 function DoublesScoreCenterP2()
-if GAMESTATE:PlayerUsingBothSides() or CustomMods[PLAYER_2].solo == true then return "addx,-SCREEN_WIDTH/4-8;" end
-return ""
+	if GAMESTATE:PlayerUsingBothSides() or CustomMods[PLAYER_2].solo == true
+		then return "addx,-SCREEN_WIDTH/4-8;"
+	end
+	return ""
 end
-
 
 function PlayerFullCombo(pn, combotype)	
 if pn == PLAYER_1 then MESSAGEMAN:Broadcast( "Player1FullCombo" .. combotype ) end
 if pn == PLAYER_2 then MESSAGEMAN:Broadcast( "Player2FullCombo" .. combotype ) end
 end
-	
+
 function GetRateModHelper( rate )
    return GAMESTATE:PlayerIsUsingModifier(0, rate) or GAMESTATE:PlayerIsUsingModifier(1, rate)
 end
 
 function GetRateMod()
-   if GetRateModHelper('1.0xmusic') then return ''
-   elseif GetRateModHelper('1.1xmusic') then return '1.1x Rate' 
-   elseif GetRateModHelper('1.2xmusic') then return '1.2x Rate' 
-   elseif GetRateModHelper('1.3xmusic') then return '1.3x Rate' 
-   elseif GetRateModHelper('1.4xmusic') then return '1.4x Rate' 
-   elseif GetRateModHelper('1.5xmusic') then return '1.5x Rate' 
-   elseif GetRateModHelper('1.6xmusic') then return '1.6x Rate' 
-   elseif GetRateModHelper('1.7xmusic') then return '1.7x Rate' 
-   elseif GetRateModHelper('1.8xmusic') then return '1.8x Rate' 
-   elseif GetRateModHelper('1.9xmusic') then return '1.9x Rate' 
-   elseif GetRateModHelper('2.0xmusic') then return '2.0x Rate' 
-   else return '(Unknown rate mod)' end
+	if GetRateModHelper('1.0xmusic') then return ''
+	elseif GetRateModHelper('1.1xmusic') then return '1.1x Rate' 
+	elseif GetRateModHelper('1.2xmusic') then return '1.2x Rate' 
+	elseif GetRateModHelper('1.3xmusic') then return '1.3x Rate' 
+	elseif GetRateModHelper('1.4xmusic') then return '1.4x Rate' 
+	elseif GetRateModHelper('1.5xmusic') then return '1.5x Rate' 
+	elseif GetRateModHelper('1.6xmusic') then return '1.6x Rate' 
+	elseif GetRateModHelper('1.7xmusic') then return '1.7x Rate' 
+	elseif GetRateModHelper('1.8xmusic') then return '1.8x Rate' 
+	elseif GetRateModHelper('1.9xmusic') then return '1.9x Rate' 
+	elseif GetRateModHelper('2.0xmusic') then return '2.0x Rate' 
+	else return '(Unknown rate mod)' end
 end	
-	
-	
+
 function DisplayCustomModifiersFrame(pn)
 
 end	
-	
+
 function DisplayCustomModifiersText(pn)	--gives me text of all custom modifiers that are applied (and rate mods)
-local t = ""
+	local t = ""
 
-if CustomMods[pn].left then if t == "" then t = "Rotated Left" else t = t .. ", Rotated Left" end end
-if CustomMods[pn].right then if t == "" then t = "Rotated Right" else t = t .. ", Rotated Right" end end
-if CustomMods[pn].downward then if t == "" then t = "Rotated Downward" else t = t .. ", Rotated Downward" end end
-if CustomMods[pn].solo then if t == "" then t = "Centered" else t = t .. ", Centered" end end
+	if CustomMods[pn].left then if t == "" then t = "Rotated Left" else t = t .. ", Rotated Left" end end
+	if CustomMods[pn].right then if t == "" then t = "Rotated Right" else t = t .. ", Rotated Right" end end
+	if CustomMods[pn].downward then if t == "" then t = "Rotated Downward" else t = t .. ", Rotated Downward" end end
+	if CustomMods[pn].solo then if t == "" then t = "Centered" else t = t .. ", Centered" end end
 
-if CustomMods[pn].wag then if t == "" then t = "Wag" else t = t .. ", Wag" end 
-elseif CustomMods[pn].pulse then if t == "" then t = "Pulse" else t = t .. ", Pulse" end 
-elseif CustomMods[pn].bounce then if t == "" then t = "Bounce" else t = t .. ", Bounce" end 
-elseif CustomMods[pn].spinreverse then if t == "" then t = "Spin Left" else t = t .. ", Spin Right" end 
-elseif CustomMods[pn].spin then if t == "" then t = "Spin Right" else t = t .. ", Spin Right" end 
-elseif CustomMods[pn].vibrate then if t == "" then t = "Vibrate" else t = t .. ", Vibrate" end end
+	if CustomMods[pn].wag then if t == "" then t = "Wag" else t = t .. ", Wag" end 
+	elseif CustomMods[pn].pulse then if t == "" then t = "Pulse" else t = t .. ", Pulse" end 
+	elseif CustomMods[pn].bounce then if t == "" then t = "Bounce" else t = t .. ", Bounce" end 
+	elseif CustomMods[pn].spinreverse then if t == "" then t = "Spin Left" else t = t .. ", Spin Right" end 
+	elseif CustomMods[pn].spin then if t == "" then t = "Spin Right" else t = t .. ", Spin Right" end 
+	elseif CustomMods[pn].vibrate then if t == "" then t = "Vibrate" else t = t .. ", Vibrate" end end
 
-if CustomMods[pn].dark == 0.5 then if t == "" then t = "Dark Filter" else t = t .. ", Dark Filter" end end
-if CustomMods[pn].dark == 0.65 then if t == "" then t = "Darker Filter" else t = t .. ", Darker Filter" end end
-if CustomMods[pn].dark == 0.85 then if t == "" then t = "Darkest Filter" else t = t .. ", Darkest Filter" end end
+	if CustomMods[pn].dark == 0.5 then if t == "" then t = "Dark Filter" else t = t .. ", Dark Filter" end end
+	if CustomMods[pn].dark == 0.65 then if t == "" then t = "Darker Filter" else t = t .. ", Darker Filter" end end
+	if CustomMods[pn].dark == 0.85 then if t == "" then t = "Darkest Filter" else t = t .. ", Darkest Filter" end end
 
-if GetRateMod() ~= '' then if t == "" then t = GetRateMod() else t = t .. ", " .. GetRateMod() end end
+	if GetRateMod() ~= '' then if t == "" then t = GetRateMod() else t = t .. ", " .. GetRateMod() end end
 
-return t
-
+	return t
 end
 
  function OffsetDoublesModifiers(pn)
 	if GAMESTATE:PlayerUsingBothSides() then
 		if pn == PLAYER_1 then return "addx,-70"
-		else return "addx,70" end	
-	else return "" end
+		else return "addx,70" end
+	else
+		return ""
+	end
 end
 
 
@@ -1085,21 +1075,20 @@ function OffsetLifebarHeight(pn)
 	if CustomMods[pn].left or CustomMods[pn].right then return "SCREEN_CENTER_Y"
 	else return "SCREEN_CENTER_Y+30" end
 end
-	
 
 function PercentageTween(self, wait, tweentype, size, startvalue, endvalue, animation, duration)
---wait is sleep applied before animating, 
---tweentype is either zoom or cropping with direction
---size is the largest possible number that can fit in the area (ie, max value is 100, so a value of 100 would be 'full'),
---start and end are the current values to tween between placed in the container size (if 65 and 70, with a size of 100, it would start by showing 65% and tween to 70%)
---animation is the type of tweening,
---duration is time to complete the animation.	
---usage: PercentageTween(1, right, 100, 30, 60, decelerate, 5)
+	--wait is sleep applied before animating, 
+	--tweentype is either zoom or cropping with direction
+	--size is the largest possible number that can fit in the area (ie, max value is 100, so a value of 100 would be 'full'),
+	--start and end are the current values to tween between placed in the container size (if 65 and 70, with a size of 100, it would start by showing 65% and tween to 70%)
+	--animation is the type of tweening,
+	--duration is time to complete the animation.	
+	--usage: PercentageTween(1, right, 100, 30, 60, decelerate, 5)
 
-local startpercent=startvalue/size
-local endpercent=endvalue/size
+	local startpercent=startvalue/size
+	local endpercent=endvalue/size
 
---cropping gets start and end switched since the less you crop, the more you see
+	--cropping gets start and end switched since the less you crop, the more you see
 	if string.find(tweentype,"crop") then
 
 		if tweentype == 'cropright' then
@@ -1108,25 +1097,22 @@ local endpercent=endvalue/size
 			self:decelerate(duration)
 			self:cropright(1-endpercent)
 		end
-	
-	
 	end
-
 end
-	
+
 function PercentageTween2(self, wait, tweentype, size, startvalue, endvalue, animation, duration)
---wait is sleep applied before animating, 
---tweentype is either zoom or cropping with direction
---size is the largest possible number that can fit in the area (ie, max value is 100, so a value of 100 would be 'full'),
---start and end are the current values to tween between placed in the container size (if 65 and 70, with a size of 100, it would start by showing 65% and tween to 70%)
---animation is the type of tweening,
---duration is time to complete the animation.	
---usage: PercentageTween(1, right, 100, 30, 60, decelerate, 5)
+	--wait is sleep applied before animating, 
+	--tweentype is either zoom or cropping with direction
+	--size is the largest possible number that can fit in the area (ie, max value is 100, so a value of 100 would be 'full'),
+	--start and end are the current values to tween between placed in the container size (if 65 and 70, with a size of 100, it would start by showing 65% and tween to 70%)
+	--animation is the type of tweening,
+	--duration is time to complete the animation.	
+	--usage: PercentageTween(1, right, 100, 30, 60, decelerate, 5)
 
-local startpercent=startvalue/size
-local endpercent=endvalue/size
+	local startpercent=startvalue/size
+	local endpercent=endvalue/size
 
---cropping gets start and end switched since the less you crop, the more you see
+	--cropping gets start and end switched since the less you crop, the more you see
 	if string.find(tweentype,"crop") then
 
 		if tweentype == 'cropright' then
@@ -1135,10 +1121,5 @@ local endpercent=endvalue/size
 			self:decelerate(duration)
 			self:cropright(1-endpercent)
 		end
-	
-	
 	end
-
 end
-	
-

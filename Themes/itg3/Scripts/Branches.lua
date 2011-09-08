@@ -156,7 +156,6 @@ function GetRevision()
 end
 
 
-
 function GetLoadingDevice()
 	return "Loading Device Info ..."
 end
