@@ -1,6 +1,6 @@
 Hello, and welcome to the port of Lightning's ITG3 theme to StepMania 5.
 
-¯\(°_o)/¯
+Â¯\(o_o)/Â¯
 
 [Status]
 
