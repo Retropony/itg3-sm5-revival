@@ -8,7 +8,7 @@ local t = Def.ActorFrame{
 	};
 	LoadActor(THEME:GetPathB("ScreenOptions","overlay/_frame"))..{
 		InitCommand=cmd(Center;blend,Blend.Add;);
-		OnCommand=cmd(diffuseblink;effectcolor1,color("0.8,0.8,0.8,.85");effectdelay,.6;effectperiod,0.4;effectoffset,0.2;effectclock,'beat';diffusealpha,0;zoom,.7;bounceend,0.3;diffusealpha,1;zoom,1);
+		OnCommand=cmd(diffuseblink;effectcolor1,color("0.8,0.8,0.8,.85");effectoffset,.6;effectperiod,0.4;effectoffset,0.2;effectclock,'beat';diffusealpha,0;zoom,.7;bounceend,0.3;diffusealpha,1;zoom,1);
 		OffCommand=cmd(diffusealpha,1;accelerate,0.3;diffusealpha,0);
 	};
 

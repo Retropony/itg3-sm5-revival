@@ -1,15 +1,10 @@
 local t = Def.ActorFrame{
 	Def.StepsDisplayList{
 		Name="StepsDisplayList";
-		--[[
-		SetCommand=cmd(setfromgamestate);
-		CurrentSongChangedMessageCommand=cmd(playcommand,"Set");
-		CurrentCourseChangedMessageCommand=cmd(playcommand,"Set");
-		CurrentStepsP1ChangedMessageCommand=cmd(playcommand,"Set");
-		CurrentStepsP2ChangedMessageCommand=cmd(playcommand,"Set");
-		CurrentTrailP1ChangedMessageCommand=cmd(playcommand,"Set");
-		CurrentTrailP2ChangedMessageCommand=cmd(playcommand,"Set");
-		--]]
+		SetCommand=function(self)
+			self:visible(GAMESTATE:GetCurrentSong() ~= nil)
+		end;
+		CurrentSongChangedMessageCommand=cmd(queuecommand,"Set");
 
 		CursorP1=LoadActor(THEME:GetPathG('DifficultyList', 'cursor p1'))..{
 			Name='CursorP1';
