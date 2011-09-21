@@ -15,7 +15,7 @@ local t = Def.ActorFrame{
 		OffCommand=cmd(accelerate,0.5;addy,-100);
 	};
 	LoadActor("_lmask")..{
-		InitCommand=cmd(x,SCREEN_LEFT;halign,0;valign,0;zwrite,true;blend,'BlendMode_NoEffect';draworder,110);
+		InitCommand=cmd(x,SCREEN_LEFT;halign,0;valign,0;blend,'BlendMode_NoEffect';zwrite,true;draworder,110;);
 		OnCommand=cmd(y,SCREEN_TOP-100;decelerate,0.8;y,SCREEN_TOP);
 		OffCommand=cmd(accelerate,0.5;addy,-100);
 	};

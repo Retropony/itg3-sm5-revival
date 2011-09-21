@@ -1,3 +1,5 @@
-local t = Def.ActorFrame{};
+local t = Def.ActorFrame{
+	LoadActor("ScreenFilter");
+};
 
 return t;

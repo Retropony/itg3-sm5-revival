@@ -1,3 +1,5 @@
+local pm = GAMESTATE:GetPlayMode()
+
 local t = Def.ActorFrame{
 	LoadActor(THEME:GetPathB("ScreenWithMenuElements","underlay/_base"))..{
 		OnCommand=cmd();
@@ -17,11 +19,77 @@ local t = Def.ActorFrame{
 		OnCommand=cmd(sleep,2.8;diffusealpha,1);
 		OffCommand=cmd(stoptweening;linear,0.2;diffusealpha,0);
 	};
-	-- light
-	-- modsframe x2
-	-- trapezoid
+	LoadActor("light")..{
+		InitCommand=cmd(x,SCREEN_CENTER_X-2;y,SCREEN_CENTER_Y-40;diffusealpha,0;);
+		BeginCommand=function(self)
+			--not GAMESTATE:PlayerUsingBothSides() and
+			-- pm == 'PlayMode_Regular' or pm == 'PlayMode_Nonstop' or pm == 'PlayMode_Oni'
+		end;
+		OnCommand=cmd(sleep,3.5;linear,0.8;diffusealpha,1;diffuseramp;effectperiod,2;effectoffset,0.20;effectclock,"beat";effectcolor1,color("#FFFFFF00");effectcolor2,color("#FFFFFFFF"););
+		OffCommand=cmd(stoptweening;linear,0.2;diffusealpha,0);
+	};
+	Def.ActorFrame{
+		InitCommand=cmd(CenterX;y,SCREEN_CENTER_Y-34;);
+		BeginCommand=function(self)
+			self:visible(pm == 'PlayMode_Regular' or pm == 'PlayMode_Nonstop' or pm == 'PlayMode_Oni')
+		end;
+		LoadActor("modsframe")..{
+			OnCommand=cmd(diffusealpha,0;sleep,3;linear,0.8;diffusealpha,1);
+			OffCommand=cmd(stoptweening;linear,0.2;diffusealpha,0);
+		};
+		LoadActor("modsframe")..{
+			OnCommand=cmd(diffusealpha,0;sleep,3;linear,0.8;diffusealpha,1);
+			OffCommand=cmd(stoptweening;linear,0.2;diffusealpha,0);
+		};
+	};
+	LoadActor("trapezoid")..{
+		InitCommand=cmd(CenterX;y,SCREEN_CENTER_Y-109;shadowlength,2;diffusealpha,0;);
+		OnCommand=cmd(sleep,3;linear,0.8;diffusealpha,1);
+		OffCommand=cmd(stoptweening;linear,0.2;diffusealpha,0);
+	};
 	-- custom mods p1/p2
 	-- detail labels
+	Def.ActorFrame{
+		Name="LabelFrame";
+		InitCommand=cmd(CenterX;y,SCREEN_CENTER_Y-142);
+
+		LoadFont("_v 26px bold shadow")..{
+			Text="JUMPS";
+			InitCommand=cmd(zoomx,0.5;zoomy,0.4;shadowlength,0;diffusebottomedge,color("#BBB9FB"));
+			OnCommand=cmd(diffusealpha,0;sleep,3;linear,0.8;diffusealpha,1);
+			OffCommand=cmd(linear,0.2;diffusealpha,0);
+		};
+		LoadFont("_v 26px bold shadow")..{
+			Text="HOLDS";
+			InitCommand=cmd(y,13*1;zoomx,0.5;zoomy,0.4;shadowlength,0;diffusebottomedge,color("#BBB9FB"));
+			OnCommand=cmd(diffusealpha,0;sleep,3;linear,0.8;diffusealpha,1);
+			OffCommand=cmd(linear,0.2;diffusealpha,0);
+		};
+		LoadFont("_v 26px bold shadow")..{
+			Text="MINES";
+			InitCommand=cmd(y,13*2;zoomx,0.5;zoomy,0.4;shadowlength,0;diffusebottomedge,color("#BBB9FB"));
+			OnCommand=cmd(diffusealpha,0;sleep,3;linear,0.8;diffusealpha,1);
+			OffCommand=cmd(linear,0.2;diffusealpha,0);
+		};
+		LoadFont("_v 26px bold shadow")..{
+			Text="HANDS";
+			InitCommand=cmd(y,13*3;zoomx,0.5;zoomy,0.4;shadowlength,0;diffusebottomedge,color("#BBB9FB"));
+			OnCommand=cmd(diffusealpha,0;sleep,3;linear,0.8;diffusealpha,1);
+			OffCommand=cmd(linear,0.2;diffusealpha,0);
+		};
+		LoadFont("_v 26px bold shadow")..{
+			Text="ROLLS";
+			InitCommand=cmd(y,13*4;zoomx,0.5;zoomy,0.4;shadowlength,0;diffusebottomedge,color("#BBB9FB"));
+			OnCommand=cmd(diffusealpha,0;sleep,3;linear,0.8;diffusealpha,1);
+			OffCommand=cmd(linear,0.2;diffusealpha,0);
+		};
+		LoadFont("_v 26px bold shadow")..{
+			Text="PEAK COMBO";
+			InitCommand=cmd(y,13*5;zoomx,0.5;zoomy,0.4;shadowlength,0;diffusebottomedge,color("#BBB9FB"));
+			OnCommand=cmd(diffusealpha,0;sleep,3;linear,0.8;diffusealpha,1);
+			OffCommand=cmd(linear,0.2;diffusealpha,0);
+		};
+	};
 };
 
 return t;

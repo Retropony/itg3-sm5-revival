@@ -1,6 +1,17 @@
 local t = Def.ActorFrame{
-	-- name p1
-	-- name p2
+	Def.ActorFrame{
+		InitCommand=cmd(y,SCREEN_CENTER_Y-159);
+		LoadActor(THEME:GetPathG("_name","badge"),PLAYER_1)..{
+			InitCommand=cmd(x,SCREEN_CENTER_X+52;addx,SCREEN_WIDTH*3/4;player,PLAYER_1);
+			OnCommand=cmd(sleep,0.1;decelerate,0.3;addx,-SCREEN_WIDTH*3/4);
+			OffCommand=cmd(accelerate,0.3;addx,SCREEN_WIDTH);
+		};
+		LoadActor(THEME:GetPathG("_name","badge"),PLAYER_2)..{
+			InitCommand=cmd(x,SCREEN_CENTER_X+220;addx,SCREEN_WIDTH*3/4;player,PLAYER_2);
+			OnCommand=cmd(sleep,0.2;decelerate,0.3;addx,-SCREEN_WIDTH*3/4);
+			OffCommand=cmd(accelerate,0.3;addx,SCREEN_WIDTH);
+		};
+	};
 
 	LoadActor(THEME:GetPathB("ScreenOptions","overlay/_frame"))..{
 		InitCommand=cmd(Center);
@@ -21,6 +32,7 @@ local t = Def.ActorFrame{
 		OnCommand=cmd(diffusealpha,1;sleep,.2;linear,0.4;diffusealpha,0);
 		OffCommand=cmd(visible,false);
 	};
+	-- _coins
 };
 
 return t;

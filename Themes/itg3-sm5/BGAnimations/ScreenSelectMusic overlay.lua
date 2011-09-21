@@ -3,15 +3,13 @@ local t = Def.ActorFrame{
 		InitCommand=cmd(ztest,true);
 	};
 	LoadActor(THEME:GetPathB("ScreenWithMenuElements","underlay/_base"));
+
 	Def.ActorFrame{
 		Name="SelButtonMenu";
 		InitCommand=cmd(y,SCREEN_BOTTOM-54);
 		LoadFont("_v 26px bold white")..{
 			Text="&START; Change Sort";
-			InitCommand=cmd(x,SCREEN_CENTER_X;zoomx,.3;zoomy,.6;diffusealpha,0;shadowlength,2);
-			BeginCommand=function(self)
-				--ModeMenuAvailable()
-			end;
+			InitCommand=cmd(CenterX;zoomx,.3;zoomy,.6;diffusealpha,0;shadowlength,2;visible,ModeMenuAvailable());
 			OffCommand=cmd(linear,.3;diffusealpha,0);
 			EnableSelectHelpMessageCommand=cmd(stoptweening;bounceend,0.2;diffusealpha,1;zoomx,0.6);
 			SelectMenuOffMessageCommand=cmd(stoptweening;linear,0.2;diffusealpha,0;zoomx,0.3);
@@ -19,13 +17,11 @@ local t = Def.ActorFrame{
 		Def.ActorFrame{
 			Name="Easier";
 			InitCommand=function(self)
-				--[[
 				if ModeMenuAvailable() then
 					self:x(SCREEN_CENTER_X-100)
 				else
 					self:x(SCREEN_CENTER_X-65)
 				end
-				--]]
 				self:x(SCREEN_CENTER_X-65)
 			end;
 			LoadFont("_v 26px bold black")..{
@@ -46,13 +42,11 @@ local t = Def.ActorFrame{
 		Def.ActorFrame{
 			Name="Harder";
 			InitCommand=function(self)
-				--[[
 				if ModeMenuAvailable() then
 					self:x(SCREEN_CENTER_X+100)
 				else
 					self:x(SCREEN_CENTER_X+65)
 				end
-				--]]
 				self:x(SCREEN_CENTER_X-65)
 			end;
 			LoadFont("_v 26px bold black")..{

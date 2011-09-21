@@ -30,15 +30,15 @@ local t = Def.ActorFrame{
 		OnCommand=cmd(linear,1;rotationz,-250;diffusealpha,0);
 	};
 	LoadActor("bar")..{
-		InitCommand=cmd(CenterX;SCREEN_CENTER_Y+156;visible,not GAMESTATE:IsCourseMode();zoomtowidth,SCREEN_WIDTH;faderight,.8;fadeleft,.8;cropright,1;);
+		InitCommand=cmd(CenterX;y,SCREEN_CENTER_Y+156;visible,not GAMESTATE:IsCourseMode();zoomtowidth,SCREEN_WIDTH;faderight,.8;fadeleft,.8;cropright,1;);
 		OnCommand=cmd(linear,.7;cropright,0);
 	};
 	LoadFont("_r bold 30px")..{
-		InitCommand=cmd(CenterX;y,SCREEN_CENTER_Y+147maxwidth,SCREEN_WIDTH/8*7;shadowlength,2;horizalign,center;zoom,.5;diffusealpha,0;);
+		InitCommand=cmd(CenterX;y,SCREEN_CENTER_Y+147;maxwidth,SCREEN_WIDTH/8*7;shadowlength,2;horizalign,center;zoom,.5;diffusealpha,0;);
 		OnCommand=cmd(sleep,.1;linear,.3;diffusealpha,1;);
 	};
 	LoadFont("_r bold 30px")..{
-		InitCommand=cmd(CenterX;y,SCREEN_CENTER_Y+167maxwidth,SCREEN_WIDTH/8*6.8;shadowlength,2;horizalign,center;zoom,.4;diffusealpha,0;);
+		InitCommand=cmd(CenterX;y,SCREEN_CENTER_Y+167;maxwidth,SCREEN_WIDTH/8*6.8;shadowlength,2;horizalign,center;zoom,.4;diffusealpha,0;);
 		OnCommand=cmd(sleep,.1;linear,.3;diffusealpha,1;);
 	};
 };

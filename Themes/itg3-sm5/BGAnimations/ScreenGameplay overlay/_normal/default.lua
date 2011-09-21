@@ -1,16 +1,40 @@
 local t = Def.ActorFrame{
-	LoadFont()..{
-		InitCommand=cmd();
-		OnCommand=cmd();
-		OffCommand=cmd();
-	};
-	LoadFont()..{
-		InitCommand=cmd();
-		OnCommand=cmd();
-		OffCommand=cmd();
-	};
 	Def.ActorFrame{
-		-- song meter display
+		Name="RaveNames";
+		InitCommand=cmd(CenterX;y,SCREEN_TOP+58;zoom,.55;visible,GAMESTATE:GetPlayMode() == 'PlayMode_Rave';);
+		OnCommand=cmd(addy,-100;sleep,0.5;decelerate,0.8;addy,100);
+		OffCommand=cmd(accelerate,0.8;addy,-100);
+
+		LoadFont("_v 26px bold black")..{
+			InitCommand=cmd(x,-254;shadowlength,0;maxwidth,180;);
+			BeginCommand=function(self)
+				if GAMESTATE:IsHumanPlayer(PLAYER_1) then
+					self:settext(GAMESTATE:GetPlayerDisplayName(PLAYER_1));
+				end
+			end;
+		};
+		LoadFont("_v 26px bold black")..{
+			InitCommand=cmd(x,254;shadowlength,0;maxwidth,180;);
+			BeginCommand=function(self)
+				if GAMESTATE:IsHumanPlayer(PLAYER_2) then
+					self:settext(GAMESTATE:GetPlayerDisplayName(PLAYER_2));
+				end
+			end;
+		};
+	};
+
+	Def.ActorFrame{
+		InitCommand=cmd(CenterX;y,SCREEN_TOP+27;addy,-100;);
+		OnCommand=cmd(sleep,0.5;queuecommand,"TweenOn");
+		OffCommand=cmd(queuecommand,"TweenOff");
+		TweenOnCommand=cmd(decelerate,0.8;addy,100);
+		-- xxx: if any player full comboed, sleep 3
+		TweenOffCommand=cmd(accelerate,0.8;addy,-100);
+		Def.SongMeterDisplay{
+			InitCommand=cmd(SetStreamWidth,292);
+			Stream=LoadActor("meter stream");
+			Tip=LoadActor("tip");
+		};
 	};
 	Def.ActorFrame{
 		OnCommand=cmd(addy,-100;sleep,0.5;queuecommand,"TweenOn");
@@ -36,38 +60,49 @@ local t = Def.ActorFrame{
 			OnCommand=cmd(sleep,1.5;linear,.1;zoomtowidth,SCREEN_WIDTH/2-200);
 		};
 		LoadActor("left")..{
-			InitCommand=cmd(x,SCREEN_CENTER_X-193;y,SCREEN_TOP+24;halign,0);
+			InitCommand=cmd(x,SCREEN_CENTER_X-193;y,SCREEN_TOP+24;halign,1);
 			OnCommand=cmd(sleep,1.5;linear,.1;x,SCREEN_LEFT+16);
 		};
 		LoadActor("right")..{
-			InitCommand=cmd(x,SCREEN_CENTER_X+193;y,SCREEN_TOP+24;halign,1);
+			InitCommand=cmd(x,SCREEN_CENTER_X+193;y,SCREEN_TOP+24;halign,0);
 			OnCommand=cmd(sleep,1.5;linear,.1;x,SCREEN_RIGHT-16);
 		};
 		LoadActor("base")..{ InitCommand=cmd(CenterX;y,SCREEN_TOP+24); };
 		LoadActor("_neons")..{
 			InitCommand=cmd(CenterX;y,SCREEN_TOP+24;blend,Blend.Add);
-			OnCommand=cmd(effectclock,'beat';diffuseramp;effectcolor1,color("#007892");effectcolor2,color("#00EAFF");effectperiod,0.5;effectdelay,0.5;effectoffset,0.05;diffusealpha,0;linear,.4;diffusealpha,1;);
+			--effectdelay,0.5;
+			OnCommand=cmd(effectclock,'beat';diffuseramp;effectcolor1,color("#007892");effectcolor2,color("#00EAFF");effectperiod,0.5;effectoffset,0.05;diffusealpha,0;linear,.4;diffusealpha,1;);
 		};
 		LoadActor("_neons")..{
 			InitCommand=cmd(x,SCREEN_CENTER_X;y,SCREEN_TOP+24);
-			OnCommand=cmd(effectclock,'beat';diffuseramp;effectcolor1,color("#FFFFFF00");effectcolor2,color("#00EAFF");effectperiod,0.5;effectdelay,0.5;effectoffset,0.05;diffusealpha,0;linear,.4;diffusealpha,1;);
+			--effectdelay,0.5;
+			OnCommand=cmd(effectclock,'beat';diffuseramp;effectcolor1,color("#FFFFFF00");effectcolor2,color("#00EAFF");effectperiod,0.5;effectoffset,0.05;diffusealpha,0;linear,.4;diffusealpha,1;);
 		};
 		LoadFont("_r bold 30px")..{
-			InitCommand=cmd(CenterX;y,SCREEN_TOP+24;maxwidth,540;diffusebottomedge,color("#dedede"));
+			InitCommand=cmd(CenterX;y,SCREEN_TOP+23;maxwidth,540;diffusebottomedge,color("#dedede"));
 			OnCommand=cmd(addy,3;zoom,.5;shadowlength,2;zoomy,0;sleep,2;decelerate,0.3;zoomy,.45;animate,0;playcommand,"Update");
 			CurrentSongChangedMessageCommand=cmd(playcommand,"Update");
 			UpdateCommand=function(self)
-				self:settext("under construction!");
+				local text = ""
+				local song = GAMESTATE:GetCurrentSong()
+				local course = GAMESTATE:GetCurrentCourse()
+				if song then
+					text = song:GetDisplayFullTitle()
+				end
+				if course then
+					text = course:GetDisplayFullTitle() .. " - " .. text;
+				end
+				self:settext(text);
 			end;
 		};
 	};
 
 	-- difficulty
 	Def.ActorFrame{
-		OnCommand=cmd(sleep,0.5;queuecommand,"TweenOn");
+		OnCommand=cmd(draworder,1;sleep,0.5;queuecommand,"TweenOn");
 		OffCommand=cmd(queuecommand,"Hide");
-		--ShowGameplayTopFrameMessageCommand="playcommand,TweenOn"
-		--HideGameplayTopFrameMessageCommand="queuecommand,Hide"
+		ShowGameplayTopFrameMessageCommand=cmd(playcommand,"TweenOn");
+		HideGameplayTopFrameMessageCommand=cmd(queuecommand,"Hide");
 		HideCommand=function(self)
 			--if AnyPlayerFullComboed() then self:sleep(3) end
 			self:queuecommand('TweenOff')
@@ -91,7 +126,11 @@ local t = Def.ActorFrame{
 					end
 				end;
 			};
-			-- stepsdisplay
+			LoadActor("difficulty glow")..{
+				InitCommand=cmd(blend,Blend.Add;diffusealpha,0;draworder,110);
+				OnCommand=cmd(sleep,2.4;decelerate,.5;diffusealpha,1;sleep,.2;decelerate,.8;diffusealpha,0;sleep,0;);
+				OffCommand=cmd(stoptweening;decelerate,.3;diffusealpha,0);
+			};
 		};
 
 		Def.ActorFrame{
@@ -112,7 +151,11 @@ local t = Def.ActorFrame{
 					end
 				end;
 			};
-			-- stepsdisplay
+			LoadActor("difficulty glow")..{
+				InitCommand=cmd(zoomx,-1;blend,Blend.Add;diffusealpha,0;draworder,110);
+				OnCommand=cmd(sleep,2.4;decelerate,.5;diffusealpha,1;sleep,.2;decelerate,.8;diffusealpha,0;sleep,0;);
+				OffCommand=cmd(stoptweening;decelerate,.3;diffusealpha,0);
+			};
 		};
 	};
 };

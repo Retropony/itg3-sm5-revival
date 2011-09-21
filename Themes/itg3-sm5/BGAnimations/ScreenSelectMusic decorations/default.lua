@@ -1,5 +1,7 @@
 local t = LoadFallbackB();
 
+t[#t+1] = LoadActor(THEME:GetPathB("ScreenWithMenuElements","underlay/fore"));
+
 t[#t+1] = StandardDecorationFromFile("BannerReflection","BannerReflection");
 t[#t+1] = StandardDecorationFromFile("Triangle","Triangle");
 
