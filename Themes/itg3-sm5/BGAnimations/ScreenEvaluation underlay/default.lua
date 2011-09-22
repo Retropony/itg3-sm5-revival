@@ -2,15 +2,15 @@ local pm = GAMESTATE:GetPlayMode()
 
 local t = Def.ActorFrame{
 	LoadActor(THEME:GetPathB("ScreenWithMenuElements","underlay/_base"))..{
-		OnCommand=cmd();
+		OnCommand=cmd(playcommand,"DoOff";finishtweening;playcommand,"Slow";queuecommand,"DoOn");
 		SlowCommand=cmd(SetUpdateRate,1.5);
 	};
 	LoadActor(THEME:GetPathB("ScreenWithMenuElements","underlay/_sides"))..{
-		OnCommand=cmd();
+		OnCommand=cmd(playcommand,"DoOff";finishtweening;playcommand,"Slow";queuecommand,"DoOn");
 		SlowCommand=cmd(SetUpdateRate,1.5);
 	};
 	LoadActor(THEME:GetPathB("ScreenWithMenuElements","underlay/_expandtop"))..{
-		OnCommand=cmd();
+		OnCommand=cmd(playcommand,"DoOff";finishtweening;playcommand,"Slow";queuecommand,"DoOn");
 		SlowCommand=cmd(SetUpdateRate,1.5);
 	};
 

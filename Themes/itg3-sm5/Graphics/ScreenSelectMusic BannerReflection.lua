@@ -6,8 +6,8 @@ return Def.FadingBanner{
 		if song then
 			self:LoadFromSong(song)
 		else
-			-- todo: check for song group
-			self:Load(THEME:GetPathG("Common","fallback banner"))
+			-- todo: check for song group, chance
+			self:LoadFromSong(nil)
 		end
 		self:scaletoclipped(320,120)
 	end;

@@ -107,8 +107,8 @@ local t = Def.ActorFrame{
 		OffCommand=cmd(accelerate,.5;addy,-100);
 	};
 	LoadActor(THEME:GetPathB("","_thanks/_ssc"))..{
-		InitCommand=cmd(x,SCREEN_LEFT+360;y,SCREEN_TOP+16;valign,1;zoom,3;rotationx,90;spin;effectmagnitude,0,0,90);
-		OnCommand=cmd();
+		InitCommand=cmd(x,SCREEN_LEFT+360;y,SCREEN_TOP+16;valign,1;addy,-100);
+		OnCommand=cmd(sleep,0.5;linear,0.5;addy,100;);
 		OffCommand=cmd(accelerate,.5;addy,-100);
 	};
 

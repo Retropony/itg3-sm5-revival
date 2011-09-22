@@ -8,12 +8,16 @@ return Def.ActorFrame{
 		OnCommand=cmd(sleep,0;linear,0.5;diffusealpha,1;y,SCREEN_CENTER_Y-158;);
 	};
 	LoadActor("lolhi")..{
-		InitCommand=cmd(Center;zoomx,SCREEN_WIDTH;zoomy,.68;);
-		OnCommand=cmd(linear,0.2;zoomy,0);
+		InitCommand=cmd(Center;zoomx,SCREEN_WIDTH;zoomy,0;);
+		OnCommand=cmd(linear,0.2;zoomy,.68);
 	};
 	LoadFont("_z 36px shadowx")..{
 		Text="LOADING...";
-		InitComand=cmd(x,SCREEN_CENTER_X+42;CenterY;);
-		OnCommand=cmd(linear,0.2;diffuse,color("0,0,0,0"));
+		InitCommand=cmd(x,SCREEN_CENTER_X+42;CenterY;cropright,1.3;faderight,0.1;);
+		OnCommand=cmd(sleep,0.2;linear,0.5;cropright,-0.3);
+	};
+	LoadActor("_disk")..{
+		InitCommand=cmd(x,SCREEN_CENTER_X-80;CenterY;diffusealpha,0;);
+		OnCommand=cmd(spin;diffusealpha,1;);
 	};
 };
