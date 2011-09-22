@@ -17,7 +17,7 @@ return Def.ActorFrame{
 		OnCommand=cmd(sleep,0.2;linear,0.5;cropright,-0.3);
 	};
 	LoadActor("_disk")..{
-		InitCommand=cmd(x,SCREEN_CENTER_X-80;CenterY;diffusealpha,0;);
+		InitCommand=cmd(x,SCREEN_CENTER_X-120;CenterY;diffusealpha,0;);
 		OnCommand=cmd(spin;diffusealpha,1;);
 	};
 };

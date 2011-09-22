@@ -12,9 +12,13 @@ local t = Def.ActorFrame{
 		OffCommand=cmd(accelerate,0.5;addy,-100);
 	};
 	LoadActor(mask)..{
-		InitCommand=cmd(x,SCREEN_CENTER_X+140;y,SCREEN_CENTER_Y-20;z,2;zwrite,true;blend,'BlendMode_NoEffect';);
+		InitCommand=cmd(x,SCREEN_CENTER_X+140;y,SCREEN_CENTER_Y-16;z,2;zwrite,true;blend,'BlendMode_NoEffect';);
 		OnCommand=cmd(addx,SCREEN_WIDTH;decelerate,0.75;addx,-SCREEN_WIDTH);
 		OffCommand=cmd(accelerate,0.75;addx,SCREEN_WIDTH);
+	};
+
+	LoadActor(THEME:GetPathB("ScreenWithMenuElements","underlay/_expandtop"))..{
+		InitCommand=cmd();
 	};
 };
 

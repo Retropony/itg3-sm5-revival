@@ -10,6 +10,16 @@ function DiffusePlayerColor( pn )
 	return color("1,1,1,1")
 end
 
+function CustomDifficultyToColor( dc )
+	if dc == "Beginner"		then return color("#D05CF6") end
+	if dc == "Easy"			then return color("#09FF10") end
+	if dc == "Medium"		then return color("#F3F312") end
+	if dc == "Hard"			then return color("#EA3548") end
+	if dc == "Challenge"	then return color("#16AFF3") end
+	if dc == "Edit"			then return color("#F7F7F7") end
+	return color("1,1,1,1")
+end
+
 function ContrastingDifficultyColor( dc )
 	if dc == "Beginner"		then return color("#E2ABF5") end
 	if dc == "Easy"			then return color("#B2FFB5") end

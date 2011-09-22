@@ -1,4 +1,4 @@
-local t = Def.ActorFrame{};
+local t = LoadFallbackB();
 
 -- combo graph
 function ComboGraph( pn )

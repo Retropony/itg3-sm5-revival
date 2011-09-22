@@ -135,7 +135,7 @@ local t = Def.ActorFrame{
 	-- stepartist crap
 	Def.ActorFrame{
 		Name="StepArtistP1";
-		InitCommand=cmd(x,SCREEN_LEFT;y,SCREEN_BOTTOM-109;addx,-SCREEN_WIDTH;player,PLAYER_1);
+		InitCommand=cmd(x,SCREEN_LEFT;y,SCREEN_BOTTOM-126;addx,-SCREEN_WIDTH;player,PLAYER_1);
 		OnCommand=cmd(decelerate,0.75;addx,SCREEN_WIDTH;);
 		OffCommand=cmd(accelerate,0.75;addx,-SCREEN_WIDTH);
 		SelectMenuOffMessageCommand=cmd(stoptweening;decelerate,.3;y,SCREEN_BOTTOM-109);
@@ -175,7 +175,7 @@ local t = Def.ActorFrame{
 	};
 	Def.ActorFrame{
 		Name="StepArtistP2";
-		InitCommand=cmd(x,SCREEN_RIGHT;y,SCREEN_BOTTOM-109;addx,SCREEN_WIDTH;player,PLAYER_2);
+		InitCommand=cmd(x,SCREEN_RIGHT;y,SCREEN_BOTTOM-126;addx,SCREEN_WIDTH;player,PLAYER_2);
 		OnCommand=cmd(decelerate,0.75;addx,-SCREEN_WIDTH;);
 		OffCommand=cmd(accelerate,0.75;addx,SCREEN_WIDTH);
 		SelectMenuOffMessageCommand=cmd(stoptweening;decelerate,.3;y,SCREEN_BOTTOM-109);
@@ -252,7 +252,45 @@ local t = Def.ActorFrame{
 		};
 	};
 
+	Def.ActorFrame{
+		Name="OptionsListBaseP1";
+		InitCommand=cmd(x,SCREEN_CENTER_X-220;y,SCREEN_CENTER_Y+22;);
+		LoadActor(THEME:GetPathG("options","pane"))..{
+			InitCommand=cmd(diffusealpha,0;zoomx,0.6);
+			OptionsListOpenedP1MessageCommand=cmd(stoptweening;linear,0.2;diffusealpha,1;zoomx,1);
+			OptionsListClosedP1MessageCommand=cmd(stoptweening;linear,0.2;diffusealpha,0;zoomx,0.6);
+		};
+		LoadActor(THEME:GetPathG("options","pane"))..{
+			InitCommand=cmd(diffusealpha,0;blend,Blend.Add);
+			OptionsListOpenedP1MessageCommand=cmd(stoptweening;diffusealpha,0);
+			OptionsListClosedP1MessageCommand=cmd(stoptweening;diffusealpha,0);
+			OptionsListResetP1MessageCommand=cmd(stoptweening;diffusealpha,1;linear,0.2;diffusealpha,0);
+		};
+	};
+	Def.ActorFrame{
+		Name="OptionsListBaseP2";
+		InitCommand=cmd(x,SCREEN_CENTER_X+220;y,SCREEN_CENTER_Y+22;);
+		LoadActor(THEME:GetPathG("options","pane"))..{
+			InitCommand=cmd(diffusealpha,0;zoomx,-0.6);
+			OptionsListOpenedP2MessageCommand=cmd(stoptweening;linear,0.2;diffusealpha,1;zoomx,1);
+			OptionsListClosedP2MessageCommand=cmd(stoptweening;linear,0.2;diffusealpha,0;zoomx,0.6);
+		};
+		LoadActor(THEME:GetPathG("options","pane"))..{
+			InitCommand=cmd(diffusealpha,0;blend,Blend.Add;zoomx,-1);
+			OptionsListOpenedP2MessageCommand=cmd(stoptweening;diffusealpha,0);
+			OptionsListClosedP2MessageCommand=cmd(stoptweening;diffusealpha,0);
+			OptionsListResetP2MessageCommand=cmd(stoptweening;diffusealpha,1;linear,0.2;diffusealpha,0);
+		};
+	};
+
 	-- panedisplay stuff
+	LoadActor(THEME:GetPathG("_pane","numbers"),PLAYER_1)..{
+		InitCommand=cmd(x,SCREEN_LEFT+SCREEN_WIDTH/5.415;y,SCREEN_BOTTOM-54;player,PLAYER_1);
+	};
+	LoadActor(THEME:GetPathG("_pane","numbers"),PLAYER_2)..{
+		InitCommand=cmd(x,SCREEN_RIGHT-SCREEN_WIDTH/5.415;y,SCREEN_BOTTOM-54;player,PLAYER_2);
+	};
+
 	LoadActor(THEME:GetPathG("_pane","icons"))..{
 		InitCommand=cmd(x,SCREEN_LEFT+SCREEN_WIDTH/5.415;y,SCREEN_BOTTOM-184;player,PLAYER_1);
 	};
