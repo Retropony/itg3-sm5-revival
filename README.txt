@@ -2,14 +2,4 @@ Hello, and welcome to the port of Lightning's ITG3 theme to StepMania 5.
 
 ¯\(o_o)/¯
 
-[Status]
-
-Noteskins: 0%
-_____________
-
-Theme: 1%
-_____________
-oh boy this is gonna take forever. I wonder what's really used in fallback3.
-
-* Started converting XML->Lua.
-* Started renaming some files to SM5 equivalents.
+You'll want Themes\itg3-sm5\.
