@@ -39,3 +39,15 @@ local diffState = {
 function DifficultyToState(diff)
 	return diffState[diff]
 end
+
+function GetSongFrame()
+	local song = GAMESTATE:GetCurrentSong()
+	local songDir = song:GetSongDir()
+	local frame
+	if string.find(songDir,"Dance Dance Revolution 8th Mix") or string.find(songDir,"Dance Dance Revolution Extreme") then
+		frame = "_extreme"
+	else
+		frame = "_normal"
+	end
+	return frame
+end

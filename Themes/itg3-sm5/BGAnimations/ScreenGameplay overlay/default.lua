@@ -1,5 +1,5 @@
 local t = Def.ActorFrame{
-	LoadActor("_normal");
+	LoadActor(GetSongFrame());
 
 	Def.Quad{
 		InitCommand=cmd(Center;FullScreen;diffuse,color("0,0,0,1"));

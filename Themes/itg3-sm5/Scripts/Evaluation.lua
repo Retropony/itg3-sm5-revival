@@ -16,3 +16,10 @@ function EvalTweenDistance()
 	if PlayerUsingBothSides() then Distance = Distance * 2 end
 	return Distance
 end
+
+function ActorFrame:difficultyoffset()
+	local XOffset = 85
+	if GAMESTATE:GetMasterPlayerNumber() == PLAYER_2 then XOffset = XOffset * -1 end
+	self:addx( XOffset )
+	self:addy( 0 )
+end

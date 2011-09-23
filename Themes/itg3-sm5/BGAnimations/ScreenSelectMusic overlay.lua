@@ -85,7 +85,7 @@ local t = Def.ActorFrame{
 	};
 	Def.ActorFrame{
 		Name="OptionsListPaneP2";
-		LoadActor(THEME:GetPathG("_pane","elements/_lbase"))..{
+		LoadActor(THEME:GetPathG("_pane","elements/_rbase"))..{
 			InitCommand=cmd(x,SCREEN_CENTER_X-26;y,SCREEN_BOTTOM;draworder,-5;horizalign,left;vertalign,bottom;diffusealpha,0);
 			OnCommand=cmd(addx,SCREEN_WIDTH;decelerate,0.75;addx,-SCREEN_WIDTH);
 			OffCommand=cmd(sleep,.35;accelerate,0.75;addx,SCREEN_WIDTH);
