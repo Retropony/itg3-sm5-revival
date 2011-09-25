@@ -16,6 +16,8 @@ return Def.ActorFrame{
 			s=s..remainder..'/'..coinsPerCredit
 			self:settext(s)
 		end;
+		SelectMenuOpenedMessageCommand=cmd(stoptweening;bounceend,0.2;diffusealpha,0;);
+		SelectMenuClosedMessageCommand=cmd(stoptweening;linear,0.2;diffusealpha,1;);
 	};
 	LoadActor("updatecoin")..{
 		InitCommand=cmd(CenterX;y,SCREEN_BOTTOM-16;diffusealpha,0;horizalign,center;shadowlength,2;zoom,0.5;);

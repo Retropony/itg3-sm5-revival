@@ -24,7 +24,9 @@ return Def.ActorFrame{
 		OnCommand=cmd(sleep,0.4;decelerate,0.3;y,125+5);
 		OffCommand=cmd(linear,0.4;diffusealpha,0);
 	};
+	--[[
 	LoadActor("_textmask")..{
 		InitCommand=cmd(x,-77+100;y,130;zbuffer,true;blend,'BlendMode_NoEffect');
 	};
+	--]]
 };

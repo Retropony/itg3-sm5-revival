@@ -32,7 +32,7 @@ local t = Def.ActorFrame{
 		OnCommand=cmd(diffusealpha,1;sleep,.2;linear,0.4;diffusealpha,0);
 		OffCommand=cmd(visible,false);
 	};
-	-- _coins
+	LoadActor(THEME:GetPathB("","_coins"));
 };
 
 return t;

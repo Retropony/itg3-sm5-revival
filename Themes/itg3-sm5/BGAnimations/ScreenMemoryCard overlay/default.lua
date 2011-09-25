@@ -160,5 +160,5 @@ return Def.ActorFrame{
 			};
 		};
 	};
-	-- screenattract overlay
+	LoadActor(THEME:GetPathB("ScreenAttract","overlay"));
 };

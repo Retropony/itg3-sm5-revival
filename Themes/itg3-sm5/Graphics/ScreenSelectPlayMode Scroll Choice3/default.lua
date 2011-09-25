@@ -23,7 +23,8 @@ return Def.ActorFrame{
 
 	Def.ActorFrame{
 		InitCommand=cmd(x,-224;y,-70;zoom,.7);
-		GainFocusCommand=cmd(pulse;effectmagnitude,1.2,1,0;effectclock,'beat';effectperiod,.5;effectdelay,.5;effectoffset,0.6);
+		--effectdelay,.5;
+		GainFocusCommand=cmd(pulse;effectmagnitude,1.2,1,0;effectclock,'beat';effectperiod,.5;effectoffset,0.6);
 		LoseFocusCommand=cmd(stopeffect);
 
 		LoadActor("flag")..{InitCommand=cmd(zbuffer,true);};

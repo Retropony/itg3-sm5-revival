@@ -18,5 +18,5 @@ return Def.ActorFrame{
 		InitCommand=cmd(Center;FullScreen;diffusealpha,1;);
 		OnCommand=cmd(sleep,0.1;accelerate,0.5;diffusealpha,0);
 	};
-	-- attract overlay
+	LoadActor(THEME:GetPathB("ScreenAttract","overlay"));
 };

@@ -152,6 +152,7 @@ return Def.ActorFrame{
 	};
 	Def.ActorFrame{
 		Name="USBSongs";
+		InitCommand=cmd(visible,false);
 		LoadActor("_icon")..{
 			InitCommand=cmd(x,SCREEN_RIGHT-200+53*3;y,SCREEN_TOP-2+34;);
 			OnCommand=cmd(diffusealpha,0;sleep,.7;linear,.4;diffusealpha,1);

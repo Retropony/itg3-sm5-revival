@@ -110,5 +110,5 @@ return Def.ActorFrame{
 			OnCommand=cmd(linear,1;cropleft,1;cropright,-0.3);
 		};
 	};
-	-- ScreenAttract overlay
+	LoadActor(THEME:GetPathB("ScreenAttract","overlay"));
 };

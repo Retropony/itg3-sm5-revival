@@ -17,9 +17,7 @@ local t = Def.ActorFrame{
 		OffCommand=cmd(accelerate,0.75;addx,SCREEN_WIDTH);
 	};
 
-	LoadActor(THEME:GetPathB("ScreenWithMenuElements","underlay/_expandtop"))..{
-		InitCommand=cmd();
-	};
+	LoadActor(THEME:GetPathB("ScreenWithMenuElements","underlay/_expandtop"));
 };
 
 return t;

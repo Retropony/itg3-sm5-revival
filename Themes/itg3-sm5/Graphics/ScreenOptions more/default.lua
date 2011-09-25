@@ -1,11 +1,13 @@
 return Def.ActorFrame{
 	LoadActor("_triangle")..{
-		InitCommand=cmd(blend,Blend.Add;x,-38;diffuseblink;effectcolor1,color("0.6,0.6,0.6,1");effectdelay,.6;effectperiod,0.4;effectoffset,0.2;effectclock,"beat");
+		--effectdelay,.6;
+		InitCommand=cmd(blend,Blend.Add;x,-38;diffuseblink;effectcolor1,color("0.6,0.6,0.6,1");effectperiod,0.4;effectoffset,0.2;effectclock,"beat");
 		ExitSelectedP1Command=cmd(stoptweening;linear,.15;rotationz,-90);
 		ExitUnselectedP1Command=cmd(stoptweening;linear,.15;rotationz,0);
 	};
 	LoadActor("_triangle")..{
-		InitCommand=cmd(blend,Blend.Add;x,38;diffuseblink;effectcolor1,color("0.6,0.6,0.6,1");effectdelay,.6;effectperiod,0.4;effectoffset,0.2;effectclock,"beat");
+		--effectdelay,.6;
+		InitCommand=cmd(blend,Blend.Add;x,38;diffuseblink;effectcolor1,color("0.6,0.6,0.6,1");effectperiod,0.4;effectoffset,0.2;effectclock,"beat");
 		ExitSelectedP2Command=cmd(stoptweening;linear,.15;rotationz,90);
 		ExitUnselectedP2Command=cmd(stoptweening;linear,.15;rotationz,0);
 	};
