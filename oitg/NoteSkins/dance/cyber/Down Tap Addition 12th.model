@@ -1,0 +1,7 @@
+[Model]
+
+Meshes=cybermesh.txt
+
+Materials=_Down Tap Note 12th materials.txt
+
+Bones=cybermesh.txt
