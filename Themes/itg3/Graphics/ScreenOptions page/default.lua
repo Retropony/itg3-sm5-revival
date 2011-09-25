@@ -1,7 +1,10 @@
 local screen = Var "LoadingScreen"
 
 local page = "options page"
-if screen == "ScreenOptionsService" or THEME:GetMetric(screen,"Fallback") == "ScreenOptionsService" then
+if screen == "ScreenOptionsService" or
+	THEME:GetMetric(screen,"Fallback") == "ScreenOptionsService" or
+	screen == "ScreenOptionsEdit"
+then
 	page = "service page"
 else
 	page = "options page"
