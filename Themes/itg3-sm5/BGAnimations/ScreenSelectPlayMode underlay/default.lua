@@ -5,9 +5,9 @@ return Def.ActorFrame{
 	-- shared underlay arrows
 
 	Def.ActorFrame{
-		InitCommand=cmd(x,SCREEN_CENTER_X-128;y,SCREEN_CENTER_Y+5;z,-100;zoom,1.35);
+		InitCommand=cmd(x,SCREEN_CENTER_X-92;y,SCREEN_CENTER_Y+2;z,-100;zoom,1.3);
 		LoadActor("char")..{
-			InitCommand=cmd(zoom,0.6;zbuffer,true;glow,color("1,1,1,0");diffusealpha,0;linear,0.3;glow,color("1,1,1,1");sleep,0.001;diffusealpha,1;linear,0.3;glow,color("1,1,1,0"));
+			InitCommand=cmd(zoom,0.45;zbuffer,true;glow,color("1,1,1,0");diffusealpha,0;linear,0.3;glow,color("1,1,1,1");sleep,0.001;diffusealpha,1;linear,0.3;glow,color("1,1,1,0"));
 			MadeChoiceP1MessageCommand=cmd(playcommand,"GoOff");
 			MadeChoiceP2MessageCommand=cmd(playcommand,"GoOff");
 			GoOffCommand=cmd(sleep,.2;linear,0.3;diffusealpha,0;);

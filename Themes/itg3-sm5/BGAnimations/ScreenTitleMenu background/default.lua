@@ -106,11 +106,14 @@ local t = Def.ActorFrame{
 		OnCommand=cmd(sleep,0.5;linear,0.5;diffusealpha,1);
 		OffCommand=cmd(accelerate,.5;addy,-100);
 	};
+	-- only works in 16:9
+	--[[
 	LoadActor(THEME:GetPathB("","_thanks/_ssc"))..{
 		InitCommand=cmd(x,SCREEN_LEFT+360;y,SCREEN_TOP+16;valign,1;addy,-100);
 		OnCommand=cmd(sleep,0.5;linear,0.5;addy,100;);
 		OffCommand=cmd(accelerate,.5;addy,-100);
 	};
+	--]]
 
 	LoadActor("icon")..{ OffCommand=cmd(accelerate,0.5;addy,-100); };
 	-- addon OffCommand=cmd(accelerate,0.3;addx,100);

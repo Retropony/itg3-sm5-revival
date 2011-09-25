@@ -104,6 +104,7 @@ return Def.ActorFrame{
 		Def.ActorFrame{
 			Name="BarLabels";
 			-- only show on first stage
+			InitCommand=cmd(visible,GAMESTATE:GetCurrentStageIndex()==0);
 			LoadFont("_v 26px bold black")..{
 				Text="Fantastics";
 				InitCommand=cmd(rotationz,-90;addx,73*-1;addy,-20;shadowlength,0;queuecommand,"FadeOn");

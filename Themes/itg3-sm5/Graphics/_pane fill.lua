@@ -42,6 +42,7 @@ return Def.ActorFrame{
 		CurrentStepsP2ChangedMessageCommand=function(self)
 			if player == PLAYER_2 then self:playcommand("Set"); end
 		end;
+		OffCommand=cmd(accelerate,0.2;diffusealpha,0);
 	};
 	Def.Quad{
 		Name="Holds";
@@ -83,6 +84,7 @@ return Def.ActorFrame{
 		CurrentStepsP2ChangedMessageCommand=function(self)
 			if player == PLAYER_2 then self:playcommand("Set"); end
 		end;
+		OffCommand=cmd(accelerate,0.2;diffusealpha,0);
 	};
 	Def.Quad{
 		Name="Mines";
@@ -124,6 +126,7 @@ return Def.ActorFrame{
 		CurrentStepsP2ChangedMessageCommand=function(self)
 			if player == PLAYER_2 then self:playcommand("Set"); end
 		end;
+		OffCommand=cmd(accelerate,0.2;diffusealpha,0);
 	};
 	Def.Quad{
 		Name="Hands";
@@ -165,6 +168,7 @@ return Def.ActorFrame{
 		CurrentStepsP2ChangedMessageCommand=function(self)
 			if player == PLAYER_2 then self:playcommand("Set"); end
 		end;
+		OffCommand=cmd(accelerate,0.2;diffusealpha,0);
 	};
 	Def.Quad{
 		Name="Rolls";
@@ -206,5 +210,6 @@ return Def.ActorFrame{
 		CurrentStepsP2ChangedMessageCommand=function(self)
 			if player == PLAYER_2 then self:playcommand("Set"); end
 		end;
+		OffCommand=cmd(accelerate,0.2;diffusealpha,0);
 	};
 };

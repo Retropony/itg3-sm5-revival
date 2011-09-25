@@ -8,16 +8,16 @@ return Def.ActorFrame{
 		OffCommand=cmd(linear,0.3;diffusealpha,0);
 	};
 	Def.ActorFrame{
-		InitCommand=cmd(x,SCREEN_LEFT+40;y,SCREEN_CENTER_Y-95+120;horizalign,left);
+		InitCommand=cmd(x,SCREEN_LEFT+65;y,SCREEN_CENTER_Y-95+120;horizalign,left);
 		LoadActor(THEME:GetPathG("_join","icons/versus_icon"))..{
-			GainFocusCommand=cmd(accelerate,0.1;diffuse,color("#FFFFFF");x,SCREEN_LEFT+64);
-			LoseFocusCommand=cmd(finishtweening;decelerate,0.1;diffuse,color("#636363");x,SCREEN_LEFT+40);
+			GainFocusCommand=cmd(accelerate,0.1;diffuse,color("#FFFFFF");x,SCREEN_LEFT+65);
+			LoseFocusCommand=cmd(finishtweening;decelerate,0.1;diffuse,color("#636363");x,SCREEN_LEFT+46);
 			OffFocusCommand=cmd(accelerate,0.4;addx,-SCREEN_WIDTH*.5);
 		};
 		LoadActor(THEME:GetPathG("_join","icons/styleglow"))..{
 			InitCommand=cmd(blend,Blend.Add);
-			GainFocusCommand=cmd(accelerate,0.1;diffusealpha,1;x,SCREEN_LEFT+64;sleep,.07;linear,.2;diffusealpha,0);
-			LoseFocusCommand=cmd(finishtweening;decelerate,0.1;x,SCREEN_LEFT+40;diffusealpha,0);
+			GainFocusCommand=cmd(accelerate,0.1;diffusealpha,1;x,SCREEN_LEFT+65;sleep,.07;linear,.2;diffusealpha,0);
+			LoseFocusCommand=cmd(finishtweening;decelerate,0.1;x,SCREEN_LEFT+46;diffusealpha,0);
 			OffFocusCommand=cmd(accelerate,0.4;addx,-SCREEN_WIDTH*.5);
 		};
 	};

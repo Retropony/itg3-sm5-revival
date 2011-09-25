@@ -5,7 +5,9 @@ function DifficultyChangingAvailable()
 end
 
 function ModeMenuAvailable()
-	return (not GAMESTATE:IsCourseMode()) and (not GAMESTATE:GetSortOrder() == 'SortOrder_ModeMenu')
+	local courseMode = GAMESTATE:IsCourseMode()
+	local sortOrder = GAMESTATE:GetSortOrder()
+	return (not courseMode) and (sortOrder ~= 'SortOrder_ModeMenu')
 end
 
 function TextBannerAfterSet(self,param)

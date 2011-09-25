@@ -344,6 +344,14 @@ local t = Def.ActorFrame{
 		InitCommand=cmd(x,SCREEN_RIGHT-SCREEN_WIDTH/5.415;y,SCREEN_BOTTOM-54;player,PLAYER_2;);
 	};
 
+	-- options message!
+	LoadActor(THEME:GetPathG("ScreenSelectMusic","OptionsMessage"))..{
+		InitCommand=cmd(Center;pause;diffusealpha,0);
+		ShowPressStartForOptionsCommand=cmd(zoom,1.15;diffusealpha,0;decelerate,.07;zoom,1;diffusealpha,1);
+		ShowEnteringOptionsCommand=cmd(stoptweening;zoomy,0;setstate,1;accelerate,.07;zoomy,1;);
+		HidePressStartForOptionsCommandCommand=cmd(stoptweening;linear,0.3;cropleft,1.3);
+	};
+
 	LoadActor(THEME:GetPathB("","_coins"));
 };
 

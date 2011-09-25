@@ -4,6 +4,7 @@ assert(player,"[Graphics/_player scores] player required")
 return Def.ActorFrame{
 	Def.ActorFrame{
 		Name="MachineScore";
+		InitCommand=cmd(x,-55;);
 		SetCommand=function(self)
 			local name = self:GetChild("ScoreName")
 			local score = self:GetChild("ScorePercent")
@@ -45,14 +46,14 @@ return Def.ActorFrame{
 		LoadFont("_z 36px shadowx")..{
 			Name="ScoreName";
 			Text="MACH";
-			InitCommand=cmd(x,-22;y,85;diffusealpha,0;zoom,.55;shadowlength,2;maxwidth,135;);
+			InitCommand=cmd(y,85;diffusealpha,0;zoom,.55;shadowlength,2;maxwidth,135;);
 			OnCommand=cmd(sleep,.5;linear,0.2;diffusealpha,1);
 			OffCommand=cmd(linear,0.4;diffusealpha,0);
 		};
 		LoadFont("_z 36px shadowx")..{
 			Name="ScorePercent";
 			Text="0.00%";
-			InitCommand=cmd(x,-22;y,100;diffusealpha,0;zoom,.55;shadowlength,2;maxwidth,175;);
+			InitCommand=cmd(y,100;diffusealpha,0;zoom,.55;shadowlength,2;maxwidth,175;diffusebottomedge,color("#AAAAAA"));
 			OnCommand=cmd(sleep,.6;linear,0.2;diffusealpha,1);
 			OffCommand=cmd(linear,0.4;diffusealpha,0);
 		};
@@ -60,6 +61,7 @@ return Def.ActorFrame{
 
 	Def.ActorFrame{
 		Name="ProfileScore";
+		InitCommand=cmd(x,46;);
 		SetCommand=function(self)
 			local name = self:GetChild("ScoreName")
 			local score = self:GetChild("ScorePercent")
@@ -98,14 +100,14 @@ return Def.ActorFrame{
 		LoadFont("_z 36px shadowx")..{
 			Name="ScoreName";
 			Text="CARD";
-			InitCommand=cmd(x,80;y,85;diffusealpha,0;zoom,.55;shadowlength,2;maxwidth,200;);
+			InitCommand=cmd(y,85;diffusealpha,0;zoom,.55;shadowlength,2;maxwidth,200;);
 			OnCommand=cmd(sleep,.85;linear,0.2;diffusealpha,1);
 			OffCommand=cmd(linear,0.4;diffusealpha,0);
 		};
 		LoadFont("_z 36px shadowx")..{
 			Name="ScorePercent";
 			Text="0.00%";
-			InitCommand=cmd(x,80;y,100;diffusealpha,0;zoom,.55;shadowlength,2;maxwidth,175;);
+			InitCommand=cmd(y,100;diffusealpha,0;zoom,.55;shadowlength,2;maxwidth,175;diffusebottomedge,PlayerColor(player));
 			OnCommand=cmd(sleep,.6;linear,0.2;diffusealpha,1);
 			OffCommand=cmd(linear,0.4;diffusealpha,0);
 		};
