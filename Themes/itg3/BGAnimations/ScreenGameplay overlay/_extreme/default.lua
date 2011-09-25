@@ -102,7 +102,7 @@ local t = Def.ActorFrame{
 
 		Def.ActorFrame{
 			Name="Player1";
-			OnCommand=cmd(player,PLAYER_1;x,SCREEN_CENTER_X-320;y,SCREEN_TOP+32;addx,-SCREEN_WIDTH/3);
+			OnCommand=cmd(player,PLAYER_1;x,SCREEN_CENTER_X-256;y,SCREEN_TOP+32;addx,-SCREEN_WIDTH/3);
 			TweenOnCommand=cmd(sleep,1.5;decelerate,0.5;addx,SCREEN_WIDTH/3);
 			TweenOffCommand=cmd(accelerate,0.8;addx,-SCREEN_WIDTH/3);
 
@@ -134,7 +134,7 @@ local t = Def.ActorFrame{
 
 		Def.ActorFrame{
 			Name="Player2";
-			OnCommand=cmd(player,PLAYER_2;x,SCREEN_CENTER_X+320;y,SCREEN_TOP+32;addx,SCREEN_WIDTH/3);
+			OnCommand=cmd(player,PLAYER_2;x,SCREEN_CENTER_X+256;y,SCREEN_TOP+32;addx,SCREEN_WIDTH/3);
 			TweenOnCommand=cmd(sleep,1.5;decelerate,0.5;addx,-SCREEN_WIDTH/3);
 			TweenOffCommand=cmd(accelerate,0.8;addx,SCREEN_WIDTH/3);
 
@@ -151,7 +151,7 @@ local t = Def.ActorFrame{
 				end;
 			};
 			LoadActor(THEME:GetPathB("ScreenGameplay","overlay/_extreme/_difficulty names"))..{
-				InitCommand=cmd(pause;playcommand,"Update");
+				InitCommand=cmd(x,19;pause;playcommand,"Update");
 				UpdateCommand=function(self)
 					local steps = GAMESTATE:GetCurrentSteps(PLAYER_2)
 					if steps then

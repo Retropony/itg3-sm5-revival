@@ -24,7 +24,7 @@ local t = Def.ActorFrame{
 	-- demo
 	Def.ActorFrame{
 		Name="DemonstrationFrame";
-		InitCommand=cmd(visible,GAMESTATE:IsDemonstration());
+		BeginCommand=cmd(visible,GAMESTATE:IsDemonstration() and SCREENMAN:GetTopScreen():GetName() ~= 'ScreenJukebox');
 		LoadActor(THEME:GetPathB("_metallic","streak"))..{
 			InitCommand=cmd(CenterX;y,SCREEN_CENTER_Y+43;zoomtowidth,SCREEN_WIDTH);
 			OnCommand=cmd(diffusealpha,.9;fadeleft,1;faderight,1);

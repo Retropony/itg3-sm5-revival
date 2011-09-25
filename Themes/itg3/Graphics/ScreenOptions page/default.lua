@@ -1,5 +1,14 @@
+local screen = Var "LoadingScreen"
+
+local page = "options page"
+if screen == "ScreenOptionsService" or THEME:GetMetric(screen,"Fallback") == "ScreenOptionsService" then
+	page = "service page"
+else
+	page = "options page"
+end
+
 local t = Def.ActorFrame{
-	LoadActor("options page")..{ InitCommand=cmd(addy,-17); };
+	LoadActor(page)..{ InitCommand=cmd(addy,-17); };
 	LoadActor("line highlight mask right")..{
 		InitCommand=cmd(addy,-145;x,291;zwrite,true;blend,'BlendMode_NoEffect');
 	};
