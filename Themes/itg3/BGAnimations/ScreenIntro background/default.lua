@@ -50,7 +50,10 @@ return Def.ActorFrame{
 		};
 	};
 
-	-- other crap
+	LoadActor("songs");
+	LoadActor("charts");
+	LoadActor("courses");
+	LoadActor("mods");
 
 	Def.Quad{
 		InitCommand=cmd(Center;FullScreen;diffusealpha,0;);

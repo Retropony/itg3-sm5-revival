@@ -51,3 +51,16 @@ function GetSongFrame()
 	end
 	return frame
 end
+
+function songfail(bVertex)
+	local curSong = GAMESTATE:GetCurrentSong()
+	if curSong then
+		local title = curSong:GetDisplayFullTitle()
+		if title == "VerTex" or title == "VerTex²" or title == "VerTex^3" or
+			title == "VerTex³" or title == "VerTex3" or title == "VVV" then
+			return bVertex and true or false
+		end
+	end
+
+	return not bVertex
+end

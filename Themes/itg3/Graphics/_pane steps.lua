@@ -54,7 +54,7 @@ return Def.ActorFrame{
 					val = 0
 				end
 			else
-				val = 0
+				val = "?"
 			end
 			self:settext(val)
 		end;

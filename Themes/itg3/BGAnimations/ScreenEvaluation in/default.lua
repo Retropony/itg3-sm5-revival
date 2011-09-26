@@ -47,5 +47,13 @@ return Def.ActorFrame{
 			local stageStats = STATSMAN:GetCurStageStats()
 			self:visible( not stageStats:OnePassed() )
 		end;
+		LoadActor("failed glow")..{
+			InitCommand=cmd(CenterX;y,SCREEN_CENTER_Y-240+340;cropleft,-0.3;cropright,1;faderight,.1;fadeleft,.1;);
+			OnCommand=cmd(sleep,0.35;linear,0.7;cropleft,1;cropright,-0.3);
+		};
+		LoadActor("failed text")..{
+			InitCommand=cmd(CenterX;y,SCREEN_CENTER_Y-240+340;cropright,1.3;faderight,0.1;);
+			OnCommand=cmd(sleep,0.35;linear,0.7;cropright,-0.3;sleep,1.95;linear,0.3;diffuse,color("0,0,0,0"));
+		};
 	};
 };

@@ -29,9 +29,29 @@ return Def.ActorFrame{
 					nameText = "no";
 					scoreText = "steps"
 				end
+			elseif GAMESTATE:IsCourseMode() then
+				local course = GAMESTATE:GetCurrentCourse()
+				if course then
+					local trail = GAMESTATE:GetCurrentTrail(player)
+					if trail then
+						local hsl = profile:GetHighScoreList(course,trail)
+						local scores = hsl and hsl:GetHighScores()
+						if scores[1] then
+							nameText = scores[1]:GetName()
+							scoreText = string.format("%0.2f%%",scores[1]:GetPercentDP()*100)
+						else
+							nameText = "N/A";
+							scoreText = "0.00%"
+						end
+					else
+						nameText = "NO" scoreText = "TRAIL"
+					end
+				else
+					nameText = "CRS" scoreText = "-100%"
+				end
 			else
-				-- no song
-				nameText = "?" scoreText = "?"
+				-- no song, no course
+				nameText = "N/A" scoreText = "0.00%"
 			end
 			name:settext(nameText)
 			score:settext(scoreText)
@@ -82,6 +102,24 @@ return Def.ActorFrame{
 				else
 					-- no steps
 					scoreText = "steps"
+				end
+			elseif GAMESTATE:IsCourseMode() then
+				local course = GAMESTATE:GetCurrentCourse()
+				if course then
+					local trail = GAMESTATE:GetCurrentTrail(player)
+					if trail then
+						local hsl = profile:GetHighScoreList(course,trail)
+						local scores = hsl and hsl:GetHighScores()
+						if scores[1] then
+							scoreText = string.format("%0.2f%%",scores[1]:GetPercentDP()*100)
+						else
+							scoreText = "0.00%"
+						end
+					else
+						scoreText = "?"
+					end
+				else
+					scoreText = "?"
 				end
 			else
 				-- no song

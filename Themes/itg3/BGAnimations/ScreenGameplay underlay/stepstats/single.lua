@@ -3,8 +3,8 @@ return Def.ActorFrame{
 	InitCommand=function(self)
 		local pn = GAMESTATE:GetMasterPlayerNumber()
 		local x = SCREEN_CENTER_X
-		self:x( x )
-		self:y( SCREEN_CENTER_Y)
+		self:x(x)
+		self:y(SCREEN_CENTER_Y)
 	end;
 	Def.ActorFrame{
 		Name="JudgePaneP1";
