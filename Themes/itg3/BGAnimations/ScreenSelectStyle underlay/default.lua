@@ -19,6 +19,8 @@ return Def.ActorFrame{
 		MadeChoiceP2MessageCommand=cmd(playcommand,"GoOff");
 		GoOffCommand=cmd(linear,0.5;diffusealpha,0);
 	};
-	-- shared underlay arrows
+	LoadActor(THEME:GetPathB("_shared","underlay arrows"))..{
+		InitCommand=cmd(x,184);
+	};
 	LoadActor(THEME:GetPathB("ScreenWithMenuElements","underlay/_normaltop"));
 };

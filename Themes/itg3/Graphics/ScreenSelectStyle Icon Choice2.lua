@@ -21,5 +21,16 @@ return Def.ActorFrame{
 			OffFocusCommand=cmd(accelerate,0.4;addx,-SCREEN_WIDTH*.5);
 		};
 	};
-	-- flares
+	LoadActor(THEME:GetPathG("","blueflare"))..{
+		InitCommand=cmd(x,SCREEN_CENTER_X+100;y,SCREEN_CENTER_Y-40;blend,Blend.Add;diffusealpha,0);
+		GainFocusCommand=cmd(finishtweening;zoom,0;diffusealpha,0;zoomx,7;zoomy,4;diffusealpha,1;linear,.2;zoomy,0;diffusealpha,0);
+		LoseFocusCommand=cmd(diffusealpha,0);
+		OffCommand=cmd(diffusealpha,0);
+	};
+	LoadActor(THEME:GetPathG("","blueflare"))..{
+		InitCommand=cmd(x,SCREEN_CENTER_X+100;y,SCREEN_CENTER_Y-40;blend,Blend.Add;diffusealpha,0);
+		GainFocusCommand=cmd(finishtweening;zoom,0;diffusealpha,0;zoomx,7;zoomy,4;diffusealpha,1;linear,.4;zoomy,0;diffusealpha,0);
+		LoseFocusCommand=cmd(diffusealpha,0);
+		OffCommand=cmd(diffusealpha,0);
+	};
 };

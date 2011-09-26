@@ -2,7 +2,7 @@ return Def.ActorFrame{
 	LoadActor(THEME:GetPathB("ScreenWithMenuElements","underlay/back"))..{
 		OnCommand=cmd(playcommand,"DoOn");
 	};
-	-- shared underlay arrows
+	LoadActor(THEME:GetPathB("_shared","underlay arrows"));
 
 	Def.ActorFrame{
 		InitCommand=cmd(x,SCREEN_CENTER_X-92;y,SCREEN_CENTER_Y+2;z,-100;zoom,1.3);
