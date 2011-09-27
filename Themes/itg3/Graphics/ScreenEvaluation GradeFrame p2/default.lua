@@ -98,6 +98,11 @@ local t = Def.ActorFrame{
 		OnCommand=cmd(sleep,3;decelerate,0.3;addx,-EvalTweenDistance());
 		OffCommand=cmd(accelerate,0.3;addx,EvalTweenDistance());
 	};
+	LoadActor(THEME:GetPathG("ScreenEvaluation","GradeFrame p1/mask"))..{
+		InitCommand=cmd(x,18;y,93;zoomx,-1;addx,-EvalTweenDistance();zbuffer,true;blend,'BlendMode_NoEffect');
+		OnCommand=cmd(sleep,3;decelerate,0.3;addx,EvalTweenDistance());
+		OffCommand=cmd(accelerate,0.3;addx,-EvalTweenDistance());
+	};
 	LoadActor("_glass")..{
 		InitCommand=cmd(diffusealpha,.2;x,52;y,100;addx,EvalTweenDistance(););
 		OnCommand=cmd(sleep,3;decelerate,0.3;addx,-EvalTweenDistance());

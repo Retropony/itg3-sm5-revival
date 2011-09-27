@@ -27,8 +27,53 @@ if ShowStandardDecoration("StepsDisplay") then
 	end
 end
 
+-- records text
+for pn in ivalues(PlayerNumber) do
+	local MetricsName = "MachineRecord" .. PlayerNumberToString(pn);
+	t[#t+1] = LoadActor( THEME:GetPathG(Var "LoadingScreen", "MachineRecord"), pn ) .. {
+		InitCommand=function(self) 
+			self:player(pn); 
+			self:name(MetricsName); 
+			ActorUtil.LoadAllCommandsAndSetXY(self,Var "LoadingScreen"); 
+		end;
+	};
+end
+
+for pn in ivalues(PlayerNumber) do
+	local MetricsName = "PersonalRecord" .. PlayerNumberToString(pn);
+	t[#t+1] = LoadActor( THEME:GetPathG(Var "LoadingScreen", "PersonalRecord"), pn )..{
+		InitCommand=function(self) 
+			self:player(pn); 
+			self:name(MetricsName); 
+			ActorUtil.LoadAllCommandsAndSetXY(self,Var "LoadingScreen"); 
+		end;
+	};
+end
+
+-- life graph
+local function GraphDisplay(pn)
+	local pName = ToEnumShortString(pn)
+	local t = Def.ActorFrame {
+		Def.GraphDisplay {
+			InitCommand=cmd(Load,"GraphDisplay"..pName;);
+			BeginCommand=function(self)
+				local ss = SCREENMAN:GetTopScreen():GetStageStats();
+				self:Set( ss, ss:GetPlayerStageStats(pn) );
+				self:player( pn );
+			end
+		};
+	};
+	return t;
+end
+
+if ShowStandardDecoration("GraphDisplay") then
+	for pn in ivalues(PlayerNumber) do
+		t[#t+1] = StandardDecorationFromTable( "GraphDisplay"..ToEnumShortString(pn), GraphDisplay(pn) );
+	end
+end
+
 -- combo graph
-function ComboGraph( pn )
+local function ComboGraph( pn )
 	local t = Def.ActorFrame {
 		Def.ComboGraph {
 			InitCommand=cmd(Load,"ComboGraph"..ToEnumShortString(pn););

@@ -90,6 +90,19 @@ local t = Def.ActorFrame{
 			OffCommand=cmd(linear,0.2;diffusealpha,0);
 		};
 	};
+
+	Def.ActorFrame{
+		LoadActor(THEME:GetPathG("ScreenEvaluation","GradeFrame p1/_graph base"))..{
+			InitCommand=cmd(x,THEME:GetMetric("ScreenEvaluation","GradeFrameP1X")-55;y,THEME:GetMetric("ScreenEvaluation","GradeFrameP1Y")+101;addx,-EvalTweenDistance(););
+			OnCommand=cmd(sleep,3;decelerate,0.3;addx,EvalTweenDistance());
+			OffCommand=cmd(accelerate,0.3;addx,-EvalTweenDistance());
+		};
+		LoadActor(THEME:GetPathG("ScreenEvaluation","GradeFrame p1/_graph base"))..{
+			InitCommand=cmd(x,THEME:GetMetric("ScreenEvaluation","GradeFrameP2X")+55;y,THEME:GetMetric("ScreenEvaluation","GradeFrameP2Y")+101;zoomx,-1;addx,EvalTweenDistance(););
+			OnCommand=cmd(sleep,3;decelerate,0.3;addx,-EvalTweenDistance());
+			OffCommand=cmd(accelerate,0.3;addx,EvalTweenDistance());
+		};
+	};
 };
 
 return t;
