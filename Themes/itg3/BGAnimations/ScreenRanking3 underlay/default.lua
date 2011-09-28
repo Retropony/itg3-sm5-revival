@@ -23,7 +23,14 @@ return Def.ActorFrame{
 	LoadActor(THEME:GetPathB("ScreenRanking","underlay/right"))..{
 		InitCommand=cmd(x,SCREEN_CENTER_X-120+14;y,SCREEN_TOP+4;vertalign,top;horizalign,left;zoomtowidth,SCREEN_WIDTH);
 	};
-	LoadActor("dgrades")..{
-		InitCommand=cmd(x,SCREEN_CENTER_X+100;y,SCREEN_TOP+56;);
+	Def.ActorFrame{
+		Name="Icons";
+		LoadActor("dgrades")..{
+			InitCommand=cmd(x,SCREEN_CENTER_X+100;y,SCREEN_TOP+56;);
+		};
+		LoadFont("_eurostile normal")..{
+			Text="Normal";
+			InitCommand=cmd(x,SCREEN_CENTER_X+144;y,SCREEN_TOP+54;shadowlength,2;zoom,0.5;diffuse,ContrastingDifficultyColor("Medium"));
+		};
 	};
 };
