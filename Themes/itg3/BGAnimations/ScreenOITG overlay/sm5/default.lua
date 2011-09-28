@@ -12,7 +12,7 @@ local t = Def.ActorFrame{
 	};
 	LoadFont("_v profile")..{
 		Text="Powered by";
-		InitCommand=cmd(x,-136;y,-36;halign,0;shadowlength,2;);
+		InitCommand=cmd(x,-140;y,-36;halign,0;shadowlength,2;);
 		OnCommand=cmd(diffusealpha,0;sleep,1;linear,0.5;diffusealpha,1);
 	};
 	LoadFont("_v 26px bold shadow")..{

@@ -93,12 +93,12 @@ local t = Def.ActorFrame{
 
 	Def.ActorFrame{
 		LoadActor(THEME:GetPathG("ScreenEvaluation","GradeFrame p1/_graph base"))..{
-			InitCommand=cmd(x,THEME:GetMetric("ScreenEvaluation","GradeFrameP1X")-55;y,THEME:GetMetric("ScreenEvaluation","GradeFrameP1Y")+101;addx,-EvalTweenDistance(););
+			InitCommand=cmd(player,PLAYER_1;x,THEME:GetMetric("ScreenEvaluation","GradeFrameP1X")-55;y,THEME:GetMetric("ScreenEvaluation","GradeFrameP1Y")+101;addx,-EvalTweenDistance(););
 			OnCommand=cmd(sleep,3;decelerate,0.3;addx,EvalTweenDistance());
 			OffCommand=cmd(accelerate,0.3;addx,-EvalTweenDistance());
 		};
 		LoadActor(THEME:GetPathG("ScreenEvaluation","GradeFrame p1/_graph base"))..{
-			InitCommand=cmd(x,THEME:GetMetric("ScreenEvaluation","GradeFrameP2X")+55;y,THEME:GetMetric("ScreenEvaluation","GradeFrameP2Y")+101;zoomx,-1;addx,EvalTweenDistance(););
+			InitCommand=cmd(player,PLAYER_2;x,THEME:GetMetric("ScreenEvaluation","GradeFrameP2X")+55;y,THEME:GetMetric("ScreenEvaluation","GradeFrameP2Y")+101;zoomx,-1;addx,EvalTweenDistance(););
 			OnCommand=cmd(sleep,3;decelerate,0.3;addx,-EvalTweenDistance());
 			OffCommand=cmd(accelerate,0.3;addx,EvalTweenDistance());
 		};

@@ -6,17 +6,49 @@ local t = Def.ActorFrame{
 		OnCommand=cmd(linear,0.3;diffusealpha,0);
 	};
 
-	-- stage background bar
-	-- stage background left gradient
-	-- stage background right gradient
-	-- stage background p1 gradient
-	-- stage background p2 gradient
-	-- step artist p1
-	-- step artist p2
-	-- step desc p1
-	-- step desc p2
-	-- player name p1
-	-- player name p2
+	Def.ActorFrame{
+		Name="ScreenStageHoldovers";
+		InitCommand=cmd(visible,not GAMESTATE:IsDemonstration() and not GAMESTATE:IsCourseMode());
+
+		LoadActor(THEME:GetPathB("ScreenStageInformation","background/bottom/bar"))..{
+			InitCommand=cmd(CenterX;y,SCREEN_CENTER_Y+156;zoomtowidth,SCREEN_WIDTH;faderight,.8;fadeleft,.8;);
+			OnCommand=cmd(sleep,2.25;cropright,0;linear,.6;cropleft,1);
+		};
+		Def.ActorFrame{
+			Name="InfoP1";
+			InitCommand=cmd(visible,GAMESTATE:IsPlayerEnabled(PLAYER_1));
+			-- stage background left gradient
+			LoadActor(THEME:GetPathB("ScreenStageInformation","background/_left gradient"))..{
+				InitCommand=cmd(x,SCREEN_LEFT;y,SCREEN_CENTER_Y+150;horizalign,left;);
+				OnCommand=cmd(sleep,1;linear,1;diffusealpha,0;);
+			};
+			-- stage background p1
+			LoadActor(THEME:GetPathB("ScreenStageInformation","background/_p1"))..{
+				InitCommand=cmd(x,SCREEN_LEFT;y,SCREEN_CENTER_Y+150;horizalign,left;);
+				OnCommand=cmd(sleep,1;linear,1;diffusealpha,0;);
+			};
+			-- step artist p1
+			-- step desc p1
+			-- player name p1
+		};
+		Def.ActorFrame{
+			Name="InfoP2";
+			InitCommand=cmd(visible,GAMESTATE:IsPlayerEnabled(PLAYER_2));
+			-- stage background right gradient
+			LoadActor(THEME:GetPathB("ScreenStageInformation","background/_right gradient"))..{
+				InitCommand=cmd(x,SCREEN_RIGHT;y,SCREEN_CENTER_Y+150;horizalign,right;);
+				OnCommand=cmd(sleep,1;linear,1;diffusealpha,0;);
+			};
+			-- stage background p2
+			LoadActor(THEME:GetPathB("ScreenStageInformation","background/_p2"))..{
+				InitCommand=cmd(x,SCREEN_RIGHT;y,SCREEN_CENTER_Y+150;horizalign,right;);
+				OnCommand=cmd(sleep,1;linear,1;diffusealpha,0;);
+			};
+			-- step artist p2
+			-- step desc p2
+			-- player name p2
+		};
+	};
 
 	-- song title
 	-- song artist

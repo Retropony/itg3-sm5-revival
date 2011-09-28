@@ -10,10 +10,10 @@ return Def.ActorFrame{
 	};
 
 	LoadActor("sm5")..{
-		InitCommand=cmd(x,SCREEN_LEFT+192;y,SCREEN_CENTER_Y+80;zoom,.65;);
+		InitCommand=cmd(x,SCREEN_LEFT+192;y,WideScale(SCREEN_CENTER_Y+64,SCREEN_CENTER_Y+80);zoom,.65;);
 	};
 	LoadActor("bxrx")..{
-		InitCommand=cmd(x,SCREEN_RIGHT-SCREEN_WIDTH/3.3;y,SCREEN_CENTER_Y+80;zoom,.6;);
+		InitCommand=cmd(x,SCREEN_RIGHT-SCREEN_WIDTH/3.3;y,WideScale(SCREEN_CENTER_Y+132,SCREEN_CENTER_Y+80);zoom,.6;);
 	};
 
 	Def.Quad{

@@ -1,5 +1,12 @@
 local t = Def.ActorFrame{
 	LoadActor("ScreenFilter");
+	LoadActor("beginner")..{
+		InitCommand=function(self)
+			local pm = GAMESTATE:GetPlayMode()
+			local isBeginner = GAMESTATE:GetEasiestStepsDifficulty() == 'Difficulty_Beginner'
+			self:visible(pm == 'PlayMode_Regular' and isBeginner)
+		end;
+	};
 	LoadActor("stepstats")..{
 		InitCommand=function(self)
 			local statsP1 = getenv("StatsDisplayP1")

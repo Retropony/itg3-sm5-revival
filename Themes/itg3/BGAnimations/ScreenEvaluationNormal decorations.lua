@@ -52,10 +52,9 @@ end
 
 -- life graph
 local function GraphDisplay(pn)
-	local pName = ToEnumShortString(pn)
 	local t = Def.ActorFrame {
 		Def.GraphDisplay {
-			InitCommand=cmd(Load,"GraphDisplay"..pName;);
+			InitCommand=cmd(Load,"GraphDisplay"..ToEnumShortString(pn););
 			BeginCommand=function(self)
 				local ss = SCREENMAN:GetTopScreen():GetStageStats();
 				self:Set( ss, ss:GetPlayerStageStats(pn) );
@@ -90,6 +89,46 @@ end
 if ShowStandardDecoration("ComboGraph") then
 	for pn in ivalues(PlayerNumber) do
 		t[#t+1] = StandardDecorationFromTable( "ComboGraph"..ToEnumShortString(pn), ComboGraph(pn) );
+	end;
+end;
+
+-- awards
+--- stage
+local function StageAward( pn )
+	local MetricsName = "StageAward"..ToEnumShortString(pn);
+	local t = Def.ActorFrame{
+		LoadActor( THEME:GetPathG(Var "LoadingScreen", "StageAward"), pn )..{
+			InitCommand=function(self) 
+				self:player(pn); 
+				self:name(MetricsName); 
+				ActorUtil.LoadAllCommandsAndSetXY(self,Var "LoadingScreen"); 
+			end;
+		};
+	};
+	return t;
+end
+if ShowStandardDecoration("PeakComboAward") then
+	for pn in ivalues(PlayerNumber) do
+		t[#t+1] = StandardDecorationFromTable( "PeakComboAward"..ToEnumShortString(pn), PeakComboAward(pn) );
+	end;
+end;
+--- combo
+local function PeakComboAward( pn )
+	local MetricsName = "PeakComboAward"..ToEnumShortString(pn);
+	local t = Def.ActorFrame{
+		LoadActor( THEME:GetPathG(Var "PeakComboAward", "PeakComboAward"), pn )..{
+			InitCommand=function(self) 
+				self:player(pn); 
+				self:name(MetricsName); 
+				ActorUtil.LoadAllCommandsAndSetXY(self,Var "LoadingScreen"); 
+			end;
+		};
+	};
+	return t;
+end
+if ShowStandardDecoration("PeakComboAward") then
+	for pn in ivalues(PlayerNumber) do
+		t[#t+1] = StandardDecorationFromTable( "PeakComboAward"..ToEnumShortString(pn), PeakComboAward(pn) );
 	end;
 end;
 

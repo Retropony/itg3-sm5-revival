@@ -88,7 +88,7 @@ function OptionShowStats()
 		SelectType = "SelectMultiple",
 		OneChoiceForAllPlayers = false,
 		ExportOnChange = false,
-		Choices = { "Show Ingame Statistics" },
+		Choices = { "Show In-game Statistics" },
 		LoadSelections = function(self, list, pn)
 			local pNum = (pn == PLAYER_2 and 2 or 1)
 			local optName = string.format("StatsDisplayP%i",pNum)

@@ -1,3 +1,29 @@
+-- credits stuff
+function Get2PlayerJoinMessage()
+	if not GAMESTATE:PlayersCanJoin() then return "" end
+	if GAMESTATE:GetCoinMode()=='CoinMode_Free' or GAMESTATE:GetCoinMode()=='CoinMode_Home' then
+		return "2 Player mode available"
+	end
+	local numSidesNotJoined = NUM_PLAYERS - GAMESTATE:GetNumSidesJoined()
+	if GAMESTATE:GetPremium() == 'Premium_2PlayersFor1Credit' then
+		numSidesNotJoined = numSidesNotJoined - 1
+	end
+	local coinsRequiredToJoinRest = numSidesNotJoined * PREFSMAN:GetPreference("CoinsPerCredit")
+	local remaining = coinsRequiredToJoinRest - GAMESTATE:GetCoins();
+
+	-- xxx: credit type for arcade machines
+	local s = "For 2 Players, insert " .. remaining .. " more coin(s)"
+	if remaining > 1 then s = s.."s" end
+	return s
+end
+
+function GetCreditType()
+	-- assume coin unless otherwise specified
+	-- handle other situations
+
+	return "INSERT COIN"
+end
+
 --[[ intro stuff ]]
 
 function GetRandomSongNames(n)

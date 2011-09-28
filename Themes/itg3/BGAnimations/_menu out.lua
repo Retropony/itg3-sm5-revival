@@ -13,7 +13,7 @@ return Def.ActorFrame{
 	};
 	LoadFont("_z 36px shadowx")..{
 		Text="LOADING...";
-		InitCommand=cmd(x,SCREEN_CENTER_X+42;CenterY;cropright,1.3;faderight,0.1;);
+		InitCommand=cmd(x,SCREEN_CENTER_X+42;CenterY;cropright,1.3;faderight,0.1;zoom,.7);
 		OnCommand=cmd(sleep,0.2;linear,0.5;cropright,-0.3);
 	};
 	LoadActor("_disk")..{

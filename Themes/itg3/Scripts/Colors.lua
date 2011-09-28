@@ -29,3 +29,13 @@ function ContrastingDifficultyColor( dc )
 	if dc == "Edit"			then return color("#F7F7F7") end
 	return color("1,1,1,1")
 end
+
+function DifficultyToColor( dc )
+	if dc == 'Difficulty_Beginner'	then return CustomDifficultyToColor("Beginner") end
+	if dc == 'Difficulty_Easy'		then return CustomDifficultyToColor("Easy") end
+	if dc == 'Difficulty_Medium'	then return CustomDifficultyToColor("Medium") end
+	if dc == 'Difficulty_Hard'		then return CustomDifficultyToColor("Hard") end
+	if dc == 'Difficulty_Expert'	then return CustomDifficultyToColor("Expert") end
+	if dc == 'Difficulty_Edit'		then return CustomDifficultyToColor("Edit") end
+	return color("1,1,1,1")
+end
