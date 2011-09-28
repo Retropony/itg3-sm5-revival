@@ -6,14 +6,14 @@ local t = Def.ActorFrame{
 	Def.ActorFrame{
 		Name="CardPaneP1";
 		LoadActor(THEME:GetPathB("","_overlay/cardstats"))..{
-			InitCommand=cmd(x,SCREEN_LEFT+120;y,SCREEN_CENTER_Y+155;);
+			InitCommand=cmd(x,SCREEN_LEFT+120;y,SCREEN_CENTER_Y+155;visible,EnabledAndProfile(PLAYER_1));
 			OnCommand=cmd(sleep,1;accelerate,.3;addx,-300;);
 		};
 	};
 	Def.ActorFrame{
 		Name="CardPaneP2";
 		LoadActor(THEME:GetPathB("","_overlay/cardstats"))..{
-			InitCommand=cmd(x,SCREEN_RIGHT-120;y,SCREEN_CENTER_Y+155;);
+			InitCommand=cmd(x,SCREEN_RIGHT-120;y,SCREEN_CENTER_Y+155;visible,EnabledAndProfile(PLAYER_2));
 			OnCommand=cmd(sleep,1;accelerate,.3;addx,300;);
 		};
 	};
