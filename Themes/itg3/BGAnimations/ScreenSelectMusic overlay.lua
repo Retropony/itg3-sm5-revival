@@ -217,7 +217,16 @@ local t = Def.ActorFrame{
 					self:playcommand("SelectMenuClosedMessageCommand")
 				end
 				if course then result = "" end
-				-- todo: chris foy
+
+				if string.find(artist, "C. Foy") or string.find(artist, "Foy") then
+					self:diffuseshift()
+					self:effectclock("beat")
+					self:effectcolor1(color("1,.9,.9,1"))
+					self:effectcolor2(color("1,.75,.75,1"))
+				else
+					self:stopeffect()
+				end
+
 				self:settext(result)
 			end;
 		};
