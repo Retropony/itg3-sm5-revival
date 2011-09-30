@@ -22,7 +22,7 @@ local filterWidth = (arrowWidth * cols) + padding
 if numPlayers == 1 then
 	local player = GAMESTATE:GetMasterPlayerNumber()
 	local pNum = (player == PLAYER_1) and 1 or 2
-	filterAlphas[player] = tonumber(getenv("ScreenFilterP"..pNum));
+	local filterAlpha = tonumber(getenv("ScreenFilterP"..pNum));
 
 	local pos;
 	-- [ScreenGameplay] PlayerP#Player*Side(s)X
@@ -34,7 +34,7 @@ if numPlayers == 1 then
 	end
 	t[#t+1] = Def.Quad{
 		Name="SinglePlayerFilter";
-		InitCommand=cmd(x,pos;CenterY;zoomto,filterWidth,SCREEN_HEIGHT;diffusecolor,filterColor;diffusealpha,filterAlphas[player]);
+		InitCommand=cmd(x,pos;CenterY;zoomto,filterWidth,SCREEN_HEIGHT;diffusecolor,filterColor;diffusealpha,filterAlpha);
 	};
 else
 	-- two players... a bit more complex.
@@ -43,6 +43,7 @@ else
 		local player = GAMESTATE:GetMasterPlayerNumber()
 		local pNum = player == PLAYER_1 and 1 or 2
 		local metricName = "PlayerP".. pNum .."TwoPlayersSharedSidesX"
+		filterAlphas[player] = tonumber(getenv("ScreenFilterP"..pNum))
 		t[#t+1] = Def.Quad{
 			Name="RoutineFilter";
 			InitCommand=cmd(x,THEME:GetMetric("ScreenGameplay",metricName);CenterY;zoomto,filterWidth,SCREEN_HEIGHT;diffusecolor,filterColor;diffusealpha,filterAlphas[player]);

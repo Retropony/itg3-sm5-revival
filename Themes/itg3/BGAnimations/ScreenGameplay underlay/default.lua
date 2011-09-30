@@ -14,6 +14,8 @@ local t = Def.ActorFrame{
 			self:visible(statsP1 == true or statsP2 == true)
 		end;
 	};
+	LoadActor("danger");
+	LoadActor("dead");
 };
 
 return t;

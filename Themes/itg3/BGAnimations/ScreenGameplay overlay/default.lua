@@ -50,8 +50,34 @@ local t = Def.ActorFrame{
 		};
 	};
 
-	-- song title
-	-- song artist
+	LoadFont("_r bold 30px")..{
+		InitCommand=cmd(CenterX;y,SCREEN_CENTER_Y+147;maxwidth,SCREEN_WIDTH/8*7;shadowlength,2;horizalign,center;zoom,.5;diffusealpha,1;);
+		SetCommand=function(self)
+			local song = GAMESTATE:GetCurrentSong()
+			local text
+			if song then
+				text = song:GetDisplayFullTitle()
+			else
+				text = ""
+			end
+			self:settext(text)
+		end;
+		OnCommand=cmd(playcommand,"Set";sleep,1.5;linear,1;diffusealpha,0;);
+	};
+	LoadFont("_r bold 30px")..{
+		InitCommand=cmd(CenterX;y,SCREEN_CENTER_Y+167;maxwidth,SCREEN_WIDTH/8*6.8;shadowlength,2;horizalign,center;zoom,.4;diffusealpha,1;);
+		SetCommand=function(self)
+			local song = GAMESTATE:GetCurrentSong()
+			local text
+			if song then
+				text = song:GetDisplayArtist()
+			else
+				text = ""
+			end
+			self:settext(text)
+		end;
+		OnCommand=cmd(playcommand,"Set";sleep,1.5;linear,1;diffusealpha,0;);
+	};
 
 	-- demo
 	Def.ActorFrame{
