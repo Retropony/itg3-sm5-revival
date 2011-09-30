@@ -42,10 +42,34 @@ end
 
 function GetSongFrame()
 	local song = GAMESTATE:GetCurrentSong()
+	local songTitle = song:GetDisplayFullTitle()
+	local songArtist = song:GetDisplayArtist()
 	local songDir = song:GetSongDir()
+
+	-- todo: tighten up song/string matching
 	local frame
 	if string.find(songDir,"Dance Dance Revolution 8th Mix") or string.find(songDir,"Dance Dance Revolution Extreme") then
 		frame = "_extreme"
+	elseif string.find(songTitle,"VerTex") then -- probably matches vertex beta
+		frame = "_vertex"
+	elseif string.find(songTitle,"Dream to Nightmare") then
+		frame = "_nightmare"
+	elseif string.find(songTitle,"Summer ~Speedy Mix~") then
+		frame = "_smiley"
+	elseif string.find(songTitle,"Pandemonium") then
+		frame = "_pandy"
+	elseif string.find(songTitle,"Pink Fuzzy Bunnies") then
+		frame = "_bunnies"
+	elseif string.find(songTitle,"Virtual Emotion") then
+		frame = "_virtual"
+	elseif string.find(songTitle,"Hasse Mich") then
+		frame = "_hasse"
+	elseif string.find(songTitle,"Energizer") then
+		frame = "_energy"
+	elseif string.find(songTitle,"Love Eternal") then
+		frame = "_love"
+	elseif string.find(songTitle,"Disconnected Hardkore") then
+		frame = "_disconnect"
 	else
 		frame = "_normal"
 	end

@@ -24,6 +24,18 @@ local t = Def.ActorFrame{
 	};
 
 	Def.ActorFrame{
+		InitCommand=cmd(CenterX;y,SCREEN_TOP+24;addy,-100;);
+		OnCommand=cmd(sleep,0.5;queuecommand,"TweenOn");
+		OffCommand=cmd(queuecommand,"TweenOff");
+		ShowGameplayTopFrameMessageCommand=cmd(playcommand,"TweenOn");
+		HideGameplayTopFrameMessageCommand=cmd(playcommand,"TweenOff");
+		TweenOnCommand=cmd(decelerate,0.8;addy,100);
+		-- xxx: if any player full comboed, sleep 3
+		TweenOffCommand=cmd(accelerate,0.8;addy,-100);
+		LoadActor("_base shade");
+	};
+
+	Def.ActorFrame{
 		InitCommand=cmd(CenterX;y,SCREEN_TOP+27;addy,-100;);
 		OnCommand=cmd(sleep,0.5;queuecommand,"TweenOn");
 		OffCommand=cmd(queuecommand,"TweenOff");
@@ -34,7 +46,7 @@ local t = Def.ActorFrame{
 			InitCommand=cmd(SetStreamWidth,292);
 			Stream=LoadActor("meter stream");
 			Tip=LoadActor("tip")..{
-				OnCommand=cmd(zoom,0;sleep,1.8;zoom,1;diffuseshift;effectcolor1,color("1,1,1,1");effectcolor2,color("1,1,1,.5");effectclock,"beat";effectperiod,4;);
+				OnCommand=cmd(zoom,0;y,-1;sleep,1.8;zoom,1;diffuseshift;effectcolor1,color("1,1,1,1");effectcolor2,color("1,1,1,.5");effectclock,"beat";effectperiod,4;);
 			};
 		};
 	};
@@ -47,38 +59,34 @@ local t = Def.ActorFrame{
 
 		LoadActor("_uplight")..{
 			InitCommand=cmd(CenterX;y,SCREEN_TOP+24;diffusealpha,0;);
-			OnCommand=cmd(sleep,1.8;linear,.4;diffusealpha,1;diffuse,color("#00EAFF"));
-		};
-		LoadActor("_uplight")..{
-			InitCommand=cmd(CenterX;y,SCREEN_TOP+24;diffusealpha,0;blend,Blend.Add);
-			OnCommand=cmd(sleep,1.8;linear,.4;diffusealpha,1;diffuse,color("#00EAFF"));
+			OnCommand=cmd(sleep,1.8;linear,.4;diffusealpha,1;diffuse,color("#ffff5d"));
 		};
 		LoadActor("width")..{
-			InitCommand=cmd(x,SCREEN_CENTER_X-190;y,SCREEN_TOP+24;halign,1);
+			InitCommand=cmd(x,SCREEN_CENTER_X-190;y,SCREEN_TOP+24;halign,1;zoomtowidth,3);
 			OnCommand=cmd(sleep,1.5;linear,.1;zoomtowidth,SCREEN_WIDTH/2-200);
 		};
 		LoadActor("width")..{
-			InitCommand=cmd(x,SCREEN_CENTER_X+190;y,SCREEN_TOP+24;halign,0);
+			InitCommand=cmd(x,SCREEN_CENTER_X+190;y,SCREEN_TOP+24;halign,0;zoomtowidth,3);
 			OnCommand=cmd(sleep,1.5;linear,.1;zoomtowidth,SCREEN_WIDTH/2-200);
 		};
 		LoadActor("left")..{
 			InitCommand=cmd(x,SCREEN_CENTER_X-193;y,SCREEN_TOP+24;halign,1);
 			OnCommand=cmd(sleep,1.5;linear,.1;x,SCREEN_LEFT+16);
 		};
-		LoadActor("right")..{
-			InitCommand=cmd(x,SCREEN_CENTER_X+193;y,SCREEN_TOP+24;halign,0);
+		LoadActor("left")..{
+			InitCommand=cmd(x,SCREEN_CENTER_X+193;y,SCREEN_TOP+24;halign,1;zoomx,-1);
 			OnCommand=cmd(sleep,1.5;linear,.1;x,SCREEN_RIGHT-16);
 		};
-		LoadActor("base")..{ InitCommand=cmd(CenterX;y,SCREEN_TOP+24); };
+		LoadActor("_base normal")..{ InitCommand=cmd(CenterX;y,SCREEN_TOP+24); };
 		LoadActor("_neons")..{
 			InitCommand=cmd(CenterX;y,SCREEN_TOP+24;blend,Blend.Add);
 			--effectdelay,0.5;
-			OnCommand=cmd(effectclock,'beat';diffuseramp;effectcolor1,color("#007892");effectcolor2,color("#00EAFF");effectperiod,0.5;effectoffset,0.05;diffusealpha,0;linear,.4;diffusealpha,1;);
+			OnCommand=cmd(effectclock,'beat';diffuseramp;effectcolor1,color("#474747");effectcolor2,color("##EEEEEE");effectperiod,0.5;effectoffset,0.05;diffusealpha,0;linear,.4;diffusealpha,1;);
 		};
 		LoadActor("_neons")..{
 			InitCommand=cmd(x,SCREEN_CENTER_X;y,SCREEN_TOP+24);
 			--effectdelay,0.5;
-			OnCommand=cmd(effectclock,'beat';diffuseramp;effectcolor1,color("#FFFFFF00");effectcolor2,color("#00EAFF");effectperiod,0.5;effectoffset,0.05;diffusealpha,0;linear,.4;diffusealpha,1;);
+			OnCommand=cmd(effectclock,'beat';diffuseramp;effectcolor1,color("#FFFFFF00");effectcolor2,color("#FFFFFFFF");effectperiod,0.5;effectoffset,0.05;diffusealpha,0;linear,.4;diffusealpha,1;);
 		};
 		LoadFont("_r bold 30px")..{
 			InitCommand=cmd(CenterX;y,SCREEN_TOP+23;maxwidth,540;diffusebottomedge,color("#dedede"));
