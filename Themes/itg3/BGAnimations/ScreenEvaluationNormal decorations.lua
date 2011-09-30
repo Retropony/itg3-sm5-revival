@@ -6,7 +6,7 @@ if ShowStandardDecoration("StepsDisplay") then
 		local t2 = Def.ActorFrame{
 			InitCommand=cmd(player,pn);
 			LoadActor(THEME:GetPathG("_difficulty","icons"))..{
-				InitCommand=cmd(zoom,.8;animate,0;zoomx,(pn==PLAYER_2) and -1 or 1;playcommand,"Update");
+				InitCommand=cmd(zoomy,.8;animate,0;zoomx,(pn==PLAYER_2) and -0.8 or 0.8;playcommand,"Update");
 				UpdateCommand=function(self)
 					local steps = GAMESTATE:GetCurrentSteps(pn)
 					if steps then

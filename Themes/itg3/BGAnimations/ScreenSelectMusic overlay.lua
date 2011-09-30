@@ -272,7 +272,12 @@ local t = Def.ActorFrame{
 
 	Def.ActorFrame{
 		Name="LightP1";
-		InitCommand=cmd(player,PLAYER_1);
+		InitCommand=function(self)
+			local style = GAMESTATE:GetCurrentStyle()
+			local styleType = style:GetStyleType()
+			local isDouble = (styleType == 'StyleType_OnePlayerTwoSides' or styleType == 'StyleType_TwoPlayersSharedSides')
+			self:visible(GAMESTATE:IsPlayerEnabled(PLAYER_1) and not isDouble)
+		end;
 		LoadActor(THEME:GetPathG("_pane","elements/_lneon"))..{
 			InitCommand=cmd(x,SCREEN_CENTER_X-90;y,SCREEN_BOTTOM-76;horizalign,right;vertalign,bottom;diffuseshift;effectcolor1,color("#bed0ff");effectcolor2,color("#767676");effectoffset,0;effectclock,"beat");
 			OnCommand=cmd(addx,-SCREEN_WIDTH;decelerate,0.75;addx,SCREEN_WIDTH);
@@ -286,7 +291,12 @@ local t = Def.ActorFrame{
 	};
 	Def.ActorFrame{
 		Name="LightP2";
-		InitCommand=cmd(player,PLAYER_2);
+		InitCommand=function(self)
+			local style = GAMESTATE:GetCurrentStyle()
+			local styleType = style:GetStyleType()
+			local isDouble = (styleType == 'StyleType_OnePlayerTwoSides' or styleType == 'StyleType_TwoPlayersSharedSides')
+			self:visible(GAMESTATE:IsPlayerEnabled(PLAYER_2) and not isDouble)
+		end;
 		LoadActor(THEME:GetPathG("_pane","elements/_rneon"))..{
 			InitCommand=cmd(x,SCREEN_CENTER_X+90;y,SCREEN_BOTTOM-76;horizalign,left;vertalign,bottom;diffuseshift;effectcolor1,color("#bed0ff");effectcolor2,color("#767676");effectoffset,0;effectclock,"beat");
 			OnCommand=cmd(addx,SCREEN_WIDTH;decelerate,0.75;addx,-SCREEN_WIDTH);
@@ -300,6 +310,38 @@ local t = Def.ActorFrame{
 	};
 	Def.ActorFrame{
 		Name="LightDouble";
+		InitCommand=function(self)
+			local style = GAMESTATE:GetCurrentStyle()
+			local styleType = style:GetStyleType()
+			local isDouble = (styleType == 'StyleType_OnePlayerTwoSides' or styleType == 'StyleType_TwoPlayersSharedSides')
+			self:visible(isDouble)
+		end;
+		Def.ActorFrame{
+			Name="LeftSide";
+			LoadActor(THEME:GetPathG("_pane","elements/_lneon"))..{
+				InitCommand=cmd(x,SCREEN_CENTER_X-90;y,SCREEN_BOTTOM-76;horizalign,right;vertalign,bottom;diffuseshift;effectcolor1,color("#bed0ff");effectcolor2,color("#767676");effectoffset,0;effectclock,"beat");
+				OnCommand=cmd(addx,-SCREEN_WIDTH;decelerate,0.75;addx,SCREEN_WIDTH);
+				OffCommand=cmd(sleep,.5;accelerate,0.75;addx,-SCREEN_WIDTH);
+			};
+			LoadActor(THEME:GetPathG("_pane","elements/_neonwidth"))..{
+				InitCommand=cmd(x,SCREEN_CENTER_X-146;y,SCREEN_BOTTOM-76;horizalign,right;vertalign,bottom;zoomtowidth,SCREEN_WIDTH/2;diffuseshift;effectcolor1,color("#bed0ff");effectcolor2,color("#767676");effectoffset,0;effectclock,"beat");
+				OnCommand=cmd(addx,-SCREEN_WIDTH;decelerate,0.75;addx,SCREEN_WIDTH);
+				OffCommand=cmd(sleep,.5;accelerate,0.75;addx,-SCREEN_WIDTH);
+			};
+		};
+		Def.ActorFrame{
+			Name="RightSide";
+			LoadActor(THEME:GetPathG("_pane","elements/_rneon"))..{
+				InitCommand=cmd(x,SCREEN_CENTER_X+90;y,SCREEN_BOTTOM-76;horizalign,left;vertalign,bottom;diffuseshift;effectcolor1,color("#bed0ff");effectcolor2,color("#767676");effectoffset,0;effectclock,"beat");
+				OnCommand=cmd(addx,SCREEN_WIDTH;decelerate,0.75;addx,-SCREEN_WIDTH);
+				OffCommand=cmd(sleep,.5;accelerate,0.75;addx,SCREEN_WIDTH);
+			};
+			LoadActor(THEME:GetPathG("_pane","elements/_neonwidth"))..{
+			InitCommand=cmd(x,SCREEN_CENTER_X+146;y,SCREEN_BOTTOM-76;horizalign,left;vertalign,bottom;zoomtowidth,SCREEN_WIDTH/2;diffuseshift;effectcolor1,color("#bed0ff");effectcolor2,color("#767676");effectoffset,0;effectclock,"beat");
+			OnCommand=cmd(addx,SCREEN_WIDTH;decelerate,0.75;addx,-SCREEN_WIDTH);
+			OffCommand=cmd(sleep,.5;accelerate,0.75;addx,SCREEN_WIDTH);
+		};
+		};
 	};
 
 	Def.ActorFrame{
