@@ -1,6 +1,31 @@
 local t = Def.ActorFrame{
 	LoadActor(GetSongFrame());
 
+	-- rave names
+	Def.ActorFrame{
+		Name="RaveNames";
+		InitCommand=cmd(CenterX;y,SCREEN_TOP+58;visible,GAMESTATE:GetPlayMode() == 'PlayMode_Rave';);
+		OnCommand=cmd(addy,-100;sleep,0.5;decelerate,0.8;addy,100);
+		OffCommand=cmd(accelerate,0.8;addy,-100);
+
+		LoadFont("_v 26px bold black")..{
+			InitCommand=cmd(x,-254;zoom,.55;shadowlength,0;maxwidth,180;);
+			BeginCommand=function(self)
+				if GAMESTATE:IsHumanPlayer(PLAYER_1) then
+					self:settext(GAMESTATE:GetPlayerDisplayName(PLAYER_1));
+				end
+			end;
+		};
+		LoadFont("_v 26px bold black")..{
+			InitCommand=cmd(x,254;zoom,.55;shadowlength,0;maxwidth,180;);
+			BeginCommand=function(self)
+				if GAMESTATE:IsHumanPlayer(PLAYER_2) then
+					self:settext(GAMESTATE:GetPlayerDisplayName(PLAYER_2));
+				end
+			end;
+		};
+	};
+
 	Def.Quad{
 		InitCommand=cmd(Center;FullScreen;diffuse,color("0,0,0,1"));
 		OnCommand=cmd(linear,0.3;diffusealpha,0);

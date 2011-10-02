@@ -1,33 +1,48 @@
 function SongMods()
-	-- oitg: 19|tournament, 20|showstats, 22|orientation, 23|playfield, 25|screenfilter, 27|timingscale
-
-	--[[
-	if OPENITG then 
-		if GAMESTATE:GetPlayMode() == PLAY_MODE_REGULAR and not GAMESTATE:PlayerUsingBothSides() then
-			--normal gameplay, no doubles
-			return "22,23,10,11,[12,13,14,15],19,25,20,27,24"
-		elseif  GAMESTATE:GetPlayMode() == PLAY_MODE_REGULAR and GAMESTATE:PlayerUsingBothSides() then
-			--normal play, doubles
-			return "23,10,11,[12,13,14,15],19,25,20,27,24"
-		elseif GAMESTATE:GetPlayMode() == PLAY_MODE_NONSTOP then
-			--course
-			return "22,23,[12,13,14,15],19,21,27,24"
-		else
-			--"survival/fallback"
-			return "10,11,[12,13,14,15]" end
-	else
-		--not running oitg
-		return "10,11,[12,13,14,15]"
-	end
+	--[[ oitg mods:
+	19|tournament
+	20|showstats
+	22|orientation
+	23|playfield
+	25|screenfilter
+	27|timingscale
 	--]]
+
+	local pm = GAMESTATE:GetPlayMode()
+	local style = GAMESTATE:GetCurrentStyle()
+	local styleType = style:GetStyleType()
+	local doubles = (styleType == 'StyleType_OnePlayerTwoSides' or styleType == 'StyleType_TwoPlayersSharedSides')
+
 	-- shared begin
-	local options = "1,2,3A,3B,4,7,5,18,17,9,"
+	local options = "1,2,3,4,7,5,18,17,9,"
+
 	-- differences
-	
+	if pm == 'PlayMode_Regular' then
+		if doubles then
+			--23,
+			options = options .. "10,11,"
+		else
+			--22,23,
+			options = options .. "10,11,"
+		end
+	elseif pm == 'PlayMode_Nonstop' then
+		--22,23,
+		options = options .. ""
+	else
+		-- survival/fallback
+		options = options .. "10,11,"
+	end
+
 	-- next shared
 	options = options .. "12,13,14,15,"
-	-- differences
-	
+
+	-- differences 2 (should be "27,24," but timingscale is not in sm5)
+	if pm == 'PlayMode_Regular' then
+		options = options .. "19,25,20,24,"
+	elseif pm == 'PlayMode_Nonstop' then
+		options = options .. "19,21,24,"
+	end
+
 	-- ends on 16:
 	options = options .. "16"
 	return options
@@ -37,11 +52,14 @@ function InitOptions()
 	-- tournament
 	setenv("HideScoreP1",false)
 	setenv("HideScoreP2",false)
-	setenv("HideComboP1",false)
-	setenv("HideComboP2",false)
 	setenv("HideLifeP1",false)
 	setenv("HideLifeP2",false)
+	setenv("HideComboP1",false)
+	setenv("HideComboP2",false)
 
+	-- mods display
+	setenv("ShowModsP1",false)
+	setenv("ShowModsP2",false)
 	-- stats display
 	setenv("StatsDisplayP1",false)
 	setenv("StatsDisplayP2",false)
@@ -114,11 +132,14 @@ function OptionShowModifiers()
 		ExportOnChange = false,
 		Choices = { "Show Active Modifiers" },
 		LoadSelections = function(self, list, pn)
-			--list[1] = CustomMods[pn].showmods
+			local pNum = (pn == PLAYER_2 and 2 or 1)
+			local optName = string.format("ShowModsP%i",pNum)
+			list[1] = getenv(optName)
 		end,
-		
 		SaveSelections = function(self, list, pn)
-			--CustomMods[pn].showmods = list[1]
+			local pNum = (pn == PLAYER_2 and 2 or 1)
+			local optName = string.format("ShowModsP%i",pNum)
+			setenv(optName,list[1])
 		end
 	}
 	setmetatable(t, t)
@@ -126,7 +147,52 @@ function OptionShowModifiers()
 end
 
 -- "DarkLink's Custom Mods"
--- ...great, do I even want to port this shit? -f
+-- i am ashamed to have to even put this code in the theme -f
+local function AvailableArrowDirections()
+	local dirs = { "Normal", "Left", "Right", "Upside-Down" }
+	if GAMESTATE:GetNumPlayersEnabled() == 1 then dirs[#dirs+1] = "Solo-Centered" end
+	return dirs
+end
+
+function OptionOrientation()
+	local t = {
+		Name = "Orientation",
+		LayoutType = "ShowAllInRow",
+		SelectType = "SelectOne",
+		OneChoiceForAllPlayers = false,
+		ExportOnChange = false,
+		-- xxx: dumb shit
+		Choices = { "Normal", "Left", "Right", "Upside-Down" },
+		LoadSelections = function(self, list, pn)
+			-- dicks
+		end;
+		SaveSelections = function(self, list, pn)
+			-- dicks
+		end;
+	};
+	setmetatable(t, t)
+	return t
+end
+
+function OptionPlayfield()
+	local t = {
+		Name = "PlayfieldMods",
+		LayoutType = "ShowAllInRow",
+		SelectType = "SelectOne",
+		OneChoiceForAllPlayers = false,
+		ExportOnChange = false,
+		Choices = { "Vibrate", "Spin Right", "Spin Left", "Bob", "Pulse", "Wag" },
+		LoadSelections = function(self, list, pn)
+			-- dicks
+		end;
+		SaveSelections = function(self, list, pn)
+			-- dicks
+		end;
+	};
+	setmetatable(t, t)
+	return t
+end
+-- end of stuff I had to take from someone else
 
 -- screen filter a la sm-ssc!
 function OptionRowScreenFilter()

@@ -3,7 +3,7 @@ local pm = GAMESTATE:GetPlayMode()
 return Def.ActorFrame{
 	Def.ActorFrame{
 		Name="PlatformP1";
-		InitCommand=cmd(x,SCREEN_CENTER_X-SCREEN_WIDTH/4;y,SCREEN_CENTER_Y+40;zoom,1.2;rotationx,-20;fov,45;setvanishpoint,SCREEN_CENTER_X-160,SCREEN_CENTER_Y+40);
+		InitCommand=cmd(x,SCREEN_CENTER_X-SCREEN_WIDTH/4;y,SCREEN_CENTER_Y+40;zoom,1.2;rotationx,-20;fov,45;vanishpoint,SCREEN_CENTER_X-160,SCREEN_CENTER_Y+40);
 		BeginCommand=function(self)
 			local isHuman = GAMESTATE:IsHumanPlayer(PLAYER_1)
 			local stepsDiff = GAMESTATE:GetCurrentSteps(PLAYER_1):GetDifficulty()
@@ -42,7 +42,7 @@ return Def.ActorFrame{
 
 	Def.ActorFrame{
 		Name="PlatformP2";
-		InitCommand=cmd(x,SCREEN_CENTER_X+SCREEN_WIDTH/4;y,SCREEN_CENTER_Y+40;zoom,1.2;rotationx,-20;fov,45;setvanishpoint,SCREEN_CENTER_X+160,SCREEN_CENTER_Y+40);
+		InitCommand=cmd(x,SCREEN_CENTER_X+SCREEN_WIDTH/4;y,SCREEN_CENTER_Y+40;zoom,1.2;rotationx,-20;fov,45;vanishpoint,SCREEN_CENTER_X+160,SCREEN_CENTER_Y+40);
 		BeginCommand=function(self)
 			local isHuman = GAMESTATE:IsHumanPlayer(PLAYER_2)
 			local stepsDiff = GAMESTATE:GetCurrentSteps(PLAYER_2):GetDifficulty()

@@ -1,29 +1,5 @@
 local t = Def.ActorFrame{
 	Def.ActorFrame{
-		Name="RaveNames";
-		InitCommand=cmd(CenterX;y,SCREEN_TOP+58;zoom,.55;visible,GAMESTATE:GetPlayMode() == 'PlayMode_Rave';);
-		OnCommand=cmd(addy,-100;sleep,0.5;decelerate,0.8;addy,100);
-		OffCommand=cmd(accelerate,0.8;addy,-100);
-
-		LoadFont("_v 26px bold black")..{
-			InitCommand=cmd(x,-254;shadowlength,0;maxwidth,180;);
-			BeginCommand=function(self)
-				if GAMESTATE:IsHumanPlayer(PLAYER_1) then
-					self:settext(GAMESTATE:GetPlayerDisplayName(PLAYER_1));
-				end
-			end;
-		};
-		LoadFont("_v 26px bold black")..{
-			InitCommand=cmd(x,254;shadowlength,0;maxwidth,180;);
-			BeginCommand=function(self)
-				if GAMESTATE:IsHumanPlayer(PLAYER_2) then
-					self:settext(GAMESTATE:GetPlayerDisplayName(PLAYER_2));
-				end
-			end;
-		};
-	};
-
-	Def.ActorFrame{
 		InitCommand=cmd(CenterX;y,SCREEN_TOP+27;addy,-100;);
 		OnCommand=cmd(sleep,0.5;queuecommand,"TweenOn");
 		OffCommand=cmd(queuecommand,"TweenOff");

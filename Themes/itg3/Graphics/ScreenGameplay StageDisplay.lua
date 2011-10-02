@@ -5,17 +5,23 @@ local stageRemap = {
 
 return Def.ActorFrame{
 	Def.Sprite{
-		InitCommand=function(self)
+		InitCommand=cmd(playcommand,"Set");
+		SetCommand=function(self)
 			local curStage = GAMESTATE:GetCurrentStage()
 
-			local songsPerPlay = PREFSMAN:GetPreference("SongsPerPlay")
-			if stageRemap[curStage] == songsPerPlay then
-				curStage = 'Stage_Final'
-			end
-			if GAMESTATE:IsEventMode() then curStage = 'Stage_Event' end
+			if GAMESTATE:IsCourseMode() then
+				-- xxx: needs to handle course mode (song 1, song 2, etc.)
+				-- and how to handle courses with more than 5 songs?
+			else
+				local songsPerPlay = PREFSMAN:GetPreference("SongsPerPlay")
+				if stageRemap[curStage] == songsPerPlay then
+					curStage = 'Stage_Final'
+				end
+				if GAMESTATE:IsEventMode() then curStage = 'Stage_Event' end
 
-			curStage = ToEnumShortString(curStage)
-			self:Load(THEME:GetPathG("_gameplay","stage "..curStage))
+				curStage = ToEnumShortString(curStage)
+				self:Load(THEME:GetPathG("_gameplay","stage "..curStage))
+			end
 		end;
 	};
 };

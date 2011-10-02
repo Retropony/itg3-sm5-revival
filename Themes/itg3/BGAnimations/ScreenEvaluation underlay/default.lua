@@ -22,8 +22,12 @@ local t = Def.ActorFrame{
 	LoadActor("light")..{
 		InitCommand=cmd(x,SCREEN_CENTER_X-2;y,SCREEN_CENTER_Y-40;diffusealpha,0;);
 		BeginCommand=function(self)
-			--not GAMESTATE:PlayerUsingBothSides() and
-			-- pm == 'PlayMode_Regular' or pm == 'PlayMode_Nonstop' or pm == 'PlayMode_Oni'
+			local style = GAMESTATE:GetCurrentStyle()
+			local styleType = style:GetStyleType()
+			local doubles = (styleType == 'StyleType_OnePlayerTwoSides' or styleType == 'StyleType_TwoPlayersSharedSides')
+			local pm = GAMESTATE:GetPlayMode()
+			local validMode = (pm == 'PlayMode_Regular' or pm == 'PlayMode_Nonstop' or pm == 'PlayMode_Oni')
+			self:visible(not doubles and pm)
 		end;
 		OnCommand=cmd(sleep,3.5;linear,0.8;diffusealpha,1;diffuseramp;effectperiod,2;effectoffset,0.20;effectclock,"beat";effectcolor1,color("#FFFFFF00");effectcolor2,color("#FFFFFFFF"););
 		OffCommand=cmd(stoptweening;linear,0.2;diffusealpha,0);
@@ -48,6 +52,7 @@ local t = Def.ActorFrame{
 		OffCommand=cmd(stoptweening;linear,0.2;diffusealpha,0);
 	};
 	-- custom mods p1/p2
+
 	-- detail labels
 	Def.ActorFrame{
 		Name="LabelFrame";

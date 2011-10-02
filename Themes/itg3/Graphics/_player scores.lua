@@ -63,6 +63,12 @@ return Def.ActorFrame{
 		CurrentStepsP2ChangedMessageCommand=function(self)
 			if player == PLAYER_2 then self:playcommand("Set"); end;
 		end;
+		CurrentTrailP1ChangedMessageCommand=function(self)
+			if player == PLAYER_1 then self:playcommand("Set"); end;
+		end;
+		CurrentTrailP2ChangedMessageCommand=function(self)
+			if player == PLAYER_2 then self:playcommand("Set"); end;
+		end;
 		LoadFont("_z 36px shadowx")..{
 			Name="ScoreName";
 			Text="MACH";
@@ -133,6 +139,12 @@ return Def.ActorFrame{
 			if player == PLAYER_1 then self:playcommand("Set"); end;
 		end;
 		CurrentStepsP2ChangedMessageCommand=function(self)
+			if player == PLAYER_2 then self:playcommand("Set"); end;
+		end;
+		CurrentTrailP1ChangedMessageCommand=function(self)
+			if player == PLAYER_1 then self:playcommand("Set"); end;
+		end;
+		CurrentTrailP2ChangedMessageCommand=function(self)
 			if player == PLAYER_2 then self:playcommand("Set"); end;
 		end;
 		LoadFont("_z 36px shadowx")..{

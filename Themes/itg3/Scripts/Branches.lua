@@ -35,3 +35,9 @@ Branch.AfterSelectStyle = function()
 	if IsNetConnected() then return "ScreenNetSelectMusic" end
 	return "ScreenSelectMusic"
 end
+
+Branch.PostProfileSave = function()
+	if GAMESTATE:IsEventMode() then return SelectMusicOrCourse() end
+	if AllFailed() or IsFinalStage() then return "ScreenNameEntryTraditional" end
+	return SelectMusicOrCourse()
+end

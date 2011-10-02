@@ -6,6 +6,6 @@ return Def.ActorFrame{
 			self:settext( THEME:GetString("HighScoresType",ToEnumShortString(highScoresType)) )
 		end;
 		OnCommand=cmd(linear,.5;diffusealpha,1);
-		OffCommand=cmd(sleep,.5;diffusealpha,1;linear,.5;diffusealpha,0);
+		OffCommand=cmd(sleep,.5;linear,.5;diffusealpha,0);
 	};
 };

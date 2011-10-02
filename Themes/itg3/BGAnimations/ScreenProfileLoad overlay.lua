@@ -11,6 +11,24 @@ return Def.ActorFrame{
 	LoadFont("_z 36px shadowx")..{
 		Text="LOADING PROFILES...";
 		InitCommand=cmd(x,SCREEN_CENTER_X+42;CenterY;zoom,0.75);
+		OnCommand=function(self)
+			if SCREENMAN:GetTopScreen():HaveProfileToLoad() then
+				self:sleep(1)
+				self:linear(0.25)
+				self:diffusealpha(0)
+			end
+		end;
+	};
+	LoadFont("_z 36px shadowx")..{
+		Text="LOADING...";
+		InitCommand=cmd(x,SCREEN_CENTER_X+42;CenterY;zoom,0.7;diffusealpha,0);
+		OnCommand=function(self)
+			if SCREENMAN:GetTopScreen():HaveProfileToLoad() then
+				self:sleep(1)
+				self:linear(0.25)
+				self:diffusealpha(1)
+			end
+		end;
 	};
 	LoadActor("_disk")..{
 		InitCommand=cmd(x,SCREEN_CENTER_X-120;CenterY;);
@@ -19,7 +37,7 @@ return Def.ActorFrame{
 
 	Def.Actor{
 		BeginCommand=function(self)
-			if SCREENMAN:GetTopScreen():HaveProfileToLoad() then self:sleep(1); end;
+			if SCREENMAN:GetTopScreen():HaveProfileToLoad() then self:sleep(1.5); end;
 			self:queuecommand("Load");
 		end;
 		LoadCommand=function() SCREENMAN:GetTopScreen():Continue(); end;

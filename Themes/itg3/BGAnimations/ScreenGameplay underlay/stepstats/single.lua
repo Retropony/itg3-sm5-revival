@@ -1,20 +1,21 @@
 -- single stats
+local pn = GAMESTATE:GetMasterPlayerNumber()
+
 return Def.ActorFrame{
 	InitCommand=function(self)
-		local pn = GAMESTATE:GetMasterPlayerNumber()
 		local x = SCREEN_CENTER_X
 		self:x(x)
 		self:y(SCREEN_CENTER_Y)
 	end;
 	Def.ActorFrame{
-		Name="JudgePaneP1";
-		BeginCommand=cmd(visible,GAMESTATE:IsHumanPlayer(PLAYER_1));
+		Name="JudgePane";
+		BeginCommand=cmd(visible,GAMESTATE:IsHumanPlayer(pn));
 		OnCommand=function(self)
-			--self:x(SCREEN_WIDTH/4+(CustomMods[PLAYER_1].solo and 64 or 0));
+			--self:x(SCREEN_WIDTH/4+(CustomMods[pn].solo and 64 or 0));
 			self:x(SCREEN_WIDTH/4);
-			--self:y(CustomMods[PLAYER_1].solo and 34 or 0);
+			--self:y(CustomMods[pn].solo and 34 or 0);
 			self:y(0);
-			--self:zoom(CustomMods[PLAYER_1].solo and .75 or 1)
+			--self:zoom(CustomMods[pn].solo and .75 or 1)
 			self:zoom(1)
 			self:addx(SCREEN_WIDTH/2);
 			self:decelerate(1);
@@ -25,11 +26,11 @@ return Def.ActorFrame{
 		Def.ActorFrame{
 			OnCommand=cmd(addx,10);
 			StepMessageCommand=function(self,p)
-				if p.PlayerNumber == PLAYER_1 then
+				if p.PlayerNumber == pn then
 					-- stuff
 					local holdDropCount = self:GetChild("HoldMiss")
 					local mineCount = self:GetChild("Mine")
-					local pss = STATSMAN:GetCurStageStats():GetPlayerStageStats(PLAYER_1)
+					local pss = STATSMAN:GetCurStageStats():GetPlayerStageStats(pn)
 					mineCount:settext(pss:GetTapNoteScores('TapNoteScore_HitMine'))
 					holdDropCount:settext(pss:GetHoldNoteScores('HoldNoteScore_LetGo'))
 				end
@@ -60,12 +61,12 @@ return Def.ActorFrame{
 			Name="NumbersW1";
 			InitCommand=cmd(settext,"0";zoom,0.5;addy,96;addx,73*-1;shadowlength,0);
 			StepMessageCommand=function(self,p)
-				if p.PlayerNumber == PLAYER_1 then
+				if p.PlayerNumber == pn then
 					self:playcommand("Update")
 				end
 			end;
 			UpdateCommand=function(self)
-				local pss = STATSMAN:GetCurStageStats():GetPlayerStageStats(PLAYER_1)
+				local pss = STATSMAN:GetCurStageStats():GetPlayerStageStats(pn)
 				local w1Notes = pss:GetTapNoteScores('TapNoteScore_W1')
 				self:settext(w1Notes)
 			end;
@@ -74,12 +75,12 @@ return Def.ActorFrame{
 			Name="NumbersW2";
 			InitCommand=cmd(settext,"0";zoom,0.5;addy,96;shadowlength,0);
 			StepMessageCommand=function(self,p)
-				if p.PlayerNumber == PLAYER_1 then
+				if p.PlayerNumber == pn then
 					self:playcommand("Update")
 				end
 			end;
 			UpdateCommand=function(self)
-				local pss = STATSMAN:GetCurStageStats():GetPlayerStageStats(PLAYER_1)
+				local pss = STATSMAN:GetCurStageStats():GetPlayerStageStats(pn)
 				local w2Notes = pss:GetTapNoteScores('TapNoteScore_W2')
 				self:settext(w2Notes)
 			end;
@@ -88,12 +89,12 @@ return Def.ActorFrame{
 			Name="NumbersOther";
 			InitCommand=cmd(settext,"0";zoom,0.5;addy,96;addx,73*1;shadowlength,0);
 			StepMessageCommand=function(self,p)
-				if p.PlayerNumber == PLAYER_1 then
+				if p.PlayerNumber == pn then
 					self:playcommand("Update")
 				end
 			end;
 			UpdateCommand=function(self)
-				local pss = STATSMAN:GetCurStageStats():GetPlayerStageStats(PLAYER_1)
+				local pss = STATSMAN:GetCurStageStats():GetPlayerStageStats(pn)
 				local otherNotes = pss:GetTapNoteScores('TapNoteScore_W3')
 				otherNotes = otherNotes + pss:GetTapNoteScores('TapNoteScore_W4')
 				otherNotes = otherNotes + pss:GetTapNoteScores('TapNoteScore_W5')
@@ -125,53 +126,53 @@ return Def.ActorFrame{
 		LoadActor("bar_fantastic")..{
 			InitCommand=cmd(vertalign,bottom;addx,73*-1;addy,86;zoomy,0;);
 			StepMessageCommand=function(self,p)
-				if p.PlayerNumber == PLAYER_1 then
+				if p.PlayerNumber == pn then
 					self:playcommand("Update")
 				end
 			end;
 			UpdateCommand=function(self)
-				local steps = GAMESTATE:GetCurrentSteps(PLAYER_1)
+				local steps = GAMESTATE:GetCurrentSteps(pn)
 				if steps then
-					local P1TotalSteps = steps:GetRadarValues(PLAYER_1):GetValue('RadarCategory_TapsAndHolds')
-					local pss = STATSMAN:GetCurStageStats():GetPlayerStageStats(PLAYER_1)
+					local TotalSteps = steps:GetRadarValues(pn):GetValue('RadarCategory_TapsAndHolds')
+					local pss = STATSMAN:GetCurStageStats():GetPlayerStageStats(pn)
 					local w1Notes = pss:GetTapNoteScores('TapNoteScore_W1')
-					self:zoomy(w1Notes/P1TotalSteps)
+					self:zoomy(w1Notes/TotalSteps)
 				end
 			end;
 		};
 		LoadActor("bar_excellent")..{
 			InitCommand=cmd(vertalign,bottom;addy,86;zoomy,0;);
 			StepMessageCommand=function(self,p)
-				if p.PlayerNumber == PLAYER_1 then
+				if p.PlayerNumber == pn then
 					self:playcommand("Update")
 				end
 			end;
 			UpdateCommand=function(self)
-				local steps = GAMESTATE:GetCurrentSteps(PLAYER_1)
+				local steps = GAMESTATE:GetCurrentSteps(pn)
 				if steps then
-					local P1TotalSteps = steps:GetRadarValues(PLAYER_1):GetValue('RadarCategory_TapsAndHolds')
-					local pss = STATSMAN:GetCurStageStats():GetPlayerStageStats(PLAYER_1)
+					local TotalSteps = steps:GetRadarValues(pn):GetValue('RadarCategory_TapsAndHolds')
+					local pss = STATSMAN:GetCurStageStats():GetPlayerStageStats(pn)
 					local w2Notes = pss:GetTapNoteScores('TapNoteScore_W2')
-					self:zoomy(w2Notes/P1TotalSteps)
+					self:zoomy(w2Notes/TotalSteps)
 				end
 			end;
 		};
 		LoadActor("bar_other")..{
 			InitCommand=cmd(vertalign,bottom;addx,73*1;addy,86;zoomy,0;);
 			StepMessageCommand=function(self,p)
-				if p.PlayerNumber == PLAYER_1 then
+				if p.PlayerNumber == pn then
 					self:playcommand("Update")
 				end
 			end;
 			UpdateCommand=function(self)
-				local steps = GAMESTATE:GetCurrentSteps(PLAYER_1)
+				local steps = GAMESTATE:GetCurrentSteps(pn)
 				if steps then
-					local P1TotalSteps = steps:GetRadarValues(PLAYER_1):GetValue('RadarCategory_TapsAndHolds')
-					local pss = STATSMAN:GetCurStageStats():GetPlayerStageStats(PLAYER_1)
+					local TotalSteps = steps:GetRadarValues(pn):GetValue('RadarCategory_TapsAndHolds')
+					local pss = STATSMAN:GetCurStageStats():GetPlayerStageStats(pn)
 					local otherNotes = pss:GetTapNoteScores('TapNoteScore_W3')
 					otherNotes = otherNotes + pss:GetTapNoteScores('TapNoteScore_W4')
 					otherNotes = otherNotes + pss:GetTapNoteScores('TapNoteScore_W5')
-					self:zoomy(otherNotes/P1TotalSteps)
+					self:zoomy(otherNotes/TotalSteps)
 				end
 			end;
 		};

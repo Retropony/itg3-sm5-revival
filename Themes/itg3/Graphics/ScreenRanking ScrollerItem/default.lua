@@ -12,7 +12,7 @@ local t = Def.ActorFrame{
 	};
 	LoadFont("_v 26px bold diffuse")..{
 		--maxwidth,264
-		InitCommand=cmd(x,-292;halign,0;zoom,0.6;shadowlength,1;wrapwidthpixels,264);
+		InitCommand=cmd(x,-292;halign,0;zoom,0.6;shadowlength,1;wrapwidthpixels,264;maxheight,58);
 		SetCommand=function(self, params)
 			if params.Song then
 				self:settext( params.Song:GetDisplayFullTitle() );
