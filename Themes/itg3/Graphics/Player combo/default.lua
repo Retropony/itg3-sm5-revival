@@ -43,10 +43,13 @@ return Def.ActorFrame {
 		end
 
 		local Label;
+		-- aaaaaaaa
 		if param.Combo then
 			Label = c.ComboLabel;
+			c.MissesLabel:visible(false)
 		else
 			Label = c.MissesLabel;
+			c.ComboLabel:visible(false)
 		end
 
 		param.Zoom = scale( iCombo, 0, NumberMaxZoomAt, NumberMinZoom, NumberMaxZoom );
