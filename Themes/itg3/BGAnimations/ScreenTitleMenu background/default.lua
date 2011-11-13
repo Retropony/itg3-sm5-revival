@@ -5,6 +5,9 @@ local t = Def.ActorFrame{
 		RandomStartSong()
 	end;
 	--]]
+	LoadActor(THEME:GetPathB("ScreenSelectMusic","background/_fallback"))..{
+		InitCommand=cmd(Center);
+	};
 	LoadActor(THEME:GetPathB("ScreenSelectMusic","background/CJ126"))..{
 		InitCommand=cmd(Center;FullScreen;diffusealpha,0);
 		OnCommand=cmd(linear,1.5;diffusealpha,1;);
