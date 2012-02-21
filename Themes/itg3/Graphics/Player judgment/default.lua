@@ -45,7 +45,7 @@ return Def.ActorFrame {
 	LoadActor("_judgments") .. {
 		Name="Judgment";
 		InitCommand=cmd(pause;visible,false);
-		ResetCommand=cmd(finishtweening;x,0;y,-30;stopeffect;visible,false);
+		ResetCommand=cmd(finishtweening;x,0;y,0;stopeffect;visible,false);
 	};
 	InitCommand = function(self)
 		c = self:GetChildren();
