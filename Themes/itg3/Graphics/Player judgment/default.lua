@@ -54,6 +54,7 @@ return Def.ActorFrame {
 	JudgmentMessageCommand=function(self, param)
 		if param.Player ~= player then return end;
 		if not param.TapNoteScore then return end;
+		if param.HoldNoteScore then return end;
 		local tns = param.TapNoteScore
 
 		local iNumStates = c.Judgment:GetNumStates();
