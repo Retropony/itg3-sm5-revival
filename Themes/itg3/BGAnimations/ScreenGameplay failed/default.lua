@@ -23,7 +23,14 @@ return Def.ActorFrame{
 			InitCommand=cmd(x,SCREEN_CENTER_X+2;y,SCREEN_CENTER_Y+52;diffusealpha,.2;cropleft,.5;cropright,.5;);
 			OnCommand=cmd(sleep,.7;decelerate,.75;cropright,0;cropleft,0;diffusealpha,1;);
 		};
-		-- lines.
+		LoadActor(THEME:GetPathB("ScreenSelectStyle","out/horiz-line"))..{
+			InitCommand=cmd(zoomx,2;rotationz,90;x,SCREEN_CENTER_X+1;y,SCREEN_CENTER_Y+52;cropleft,.5;cropright,.5;);
+			OnCommand=cmd(sleep,.55;accelerate,.15;cropleft,0;cropright,0;decelerate,.725;addx,-300;linear,.15;diffusealpha,0;);
+		};
+		LoadActor(THEME:GetPathB("ScreenSelectStyle","out/horiz-line"))..{
+			InitCommand=cmd(zoomx,2;rotationz,90;x,SCREEN_CENTER_X+2;y,SCREEN_CENTER_Y+52;cropleft,.5;cropright,.5;);
+			OnCommand=cmd(sleep,.55;accelerate,.15;cropleft,0;cropright,0;decelerate,.725;addx,300;linear,.15;diffusealpha,0;);
+		};
 	};
 
 	-- n words
