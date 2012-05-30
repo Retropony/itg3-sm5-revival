@@ -6,7 +6,8 @@ local t = Def.ActorFrame{
 	end;
 	--]]
 	LoadActor(THEME:GetPathB("ScreenSelectMusic","background/_fallback"))..{
-		InitCommand=cmd(Center);
+		InitCommand=cmd(Center;diffusealpha,0);
+		OnCommand=cmd(linear,1.5;diffusealpha,1;);
 	};
 	LoadActor(THEME:GetPathB("ScreenSelectMusic","background/CJ126"))..{
 		InitCommand=cmd(Center;FullScreen;diffusealpha,0);
@@ -109,11 +110,11 @@ local t = Def.ActorFrame{
 		OnCommand=cmd(sleep,0.5;linear,0.5;diffusealpha,1);
 		OffCommand=cmd(accelerate,.5;addy,-100);
 	};
-	-- only works in 16:9
+	-- only works in 16:9 (need to fix that)
 	--[[
 	LoadActor(THEME:GetPathB("","_thanks/_ssc"))..{
 		InitCommand=cmd(x,SCREEN_LEFT+360;y,SCREEN_TOP+16;valign,1;addy,-100);
-		OnCommand=cmd(sleep,0.5;linear,0.5;addy,100;);
+		OnCommand=cmd(sleep,0.4;linear,0.25;addy,100;);
 		OffCommand=cmd(accelerate,.5;addy,-100);
 	};
 	--]]

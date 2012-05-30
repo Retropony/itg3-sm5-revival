@@ -1,6 +1,9 @@
-fuck awards icons.
-they're being jerks and not working.
+the freem, incorporated StepMania 5 Theme Porting Project presents
+release #003: Lightning's In the Groove 3 (Originally for OpenITG)
+------------------------------------------------------------------
+This port is nowhere near complete and is currently on the back burner compared
+to the other projects that freem is working on (see http://ssc.ajworld.net/).
 
-otherwise this is a port of lightning's ITG3 theme to StepMania 5.
-most of the porting was done by freem/AJ of the SSC.
--------------------------------------------------------------------
+Thanks to Kauhsa for various fixes.
+
+A more comprehensive readme will be available later.
