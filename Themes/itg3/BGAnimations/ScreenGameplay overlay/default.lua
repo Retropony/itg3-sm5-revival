@@ -53,8 +53,46 @@ local t = Def.ActorFrame{
 				OnCommand=cmd(sleep,1;linear,1;diffusealpha,0;);
 			};
 			-- step artist p1
+			LoadFont("_r bold 30px")..{
+				Text="Step Artist:";
+				InitCommand=cmd(x,SCREEN_LEFT+5;y,SCREEN_CENTER_Y+172;zoom,.6;halign,0;shadowlength,2);
+				BeginCommand=function(self)
+					local pm = GAMESTATE:GetPlayMode()
+					local show = (pm == 'PlayMode_Regular' or pm == 'PlayMode_Rave')
+					self:visible(GAMESTATE:IsPlayerEnabled(PLAYER_1) and show)
+				end;
+				OnCommand=cmd(sleep,1;linear,1;diffusealpha,0;);
+			};
 			-- step desc p1
+			LoadFont("_r bold 30px")..{
+				Name="AuthorText";
+				InitCommand=cmd(x,SCREEN_LEFT+100;y,SCREEN_CENTER_Y+172;shadowlength,2;halign,0;zoom,.6);
+				BeginCommand=function(self)
+					local song = GAMESTATE:GetCurrentSong()
+					local text
+					if song then
+						local steps = GAMESTATE:GetCurrentSteps(PLAYER_1)
+						if steps then
+							text = steps:GetAuthorCredit()
+						else
+							text = ""
+						end
+					else
+						text = ""
+					end
+					self:settext(text)
+				end;
+				OnCommand=cmd(sleep,1;linear,1;diffusealpha,0;);
+			};
 			-- player name p1
+			LoadFont("_r bold 30px")..{
+			Name="PlayerName";
+			InitCommand=cmd(x,SCREEN_LEFT+44;y,SCREEN_CENTER_Y+142;shadowlength,2;halign,0;zoom,.8);
+				BeginCommand=function(self)
+					self:settext( PROFILEMAN:GetPlayerName(PLAYER_1) )
+				end;
+				OnCommand=cmd(sleep,1;linear,1;diffusealpha,0;);
+			};
 		};
 		Def.ActorFrame{
 			Name="InfoP2";
@@ -70,8 +108,46 @@ local t = Def.ActorFrame{
 				OnCommand=cmd(sleep,1;linear,1;diffusealpha,0;);
 			};
 			-- step artist p2
+			LoadFont("_r bold 30px")..{
+				Text=":Step Artist";
+				InitCommand=cmd(x,SCREEN_RIGHT-5;y,SCREEN_CENTER_Y+172;zoom,.6;halign,1;shadowlength,2);
+				BeginCommand=function(self)
+					local pm = GAMESTATE:GetPlayMode()
+					local show = (pm == 'PlayMode_Regular' or pm == 'PlayMode_Rave')
+					self:visible(GAMESTATE:IsPlayerEnabled(PLAYER_2) and show)
+				end;
+				OnCommand=cmd(sleep,1;linear,1;diffusealpha,0;);
+			};
 			-- step desc p2
+			LoadFont("_r bold 30px")..{
+				Name="AuthorText";
+				InitCommand=cmd(x,SCREEN_RIGHT-100;y,SCREEN_CENTER_Y+172;shadowlength,2;halign,1;zoom,.6);
+				BeginCommand=function(self)
+					local song = GAMESTATE:GetCurrentSong()
+					local text
+					if song then
+						local steps = GAMESTATE:GetCurrentSteps(PLAYER_2)
+						if steps then
+							text = steps:GetAuthorCredit()
+						else
+							text = ""
+						end
+					else
+						text = ""
+					end
+					self:settext(text)
+				end;
+				OnCommand=cmd(sleep,1;linear,1;diffusealpha,0;);
+			};
 			-- player name p2
+			LoadFont("_r bold 30px")..{
+				Name="PlayerName";
+				InitCommand=cmd(x,SCREEN_RIGHT-44;y,SCREEN_CENTER_Y+142;shadowlength,2;halign,1;zoom,.8);
+				BeginCommand=function(self)
+					self:settext( PROFILEMAN:GetPlayerName(PLAYER_2) )
+				end;
+				OnCommand=cmd(sleep,1;linear,1;diffusealpha,0;);
+			};
 		};
 	};
 

@@ -21,7 +21,8 @@ local t = Def.ActorFrame{
 			end;
 		};
 		LoadFont("_r bold 30px")..{
-			InitCommand=cmd(x,SCREEN_LEFT+100;y,SCREEN_CENTER_Y+172;shadowlength,2;horizalign,left;zoom,.6);
+			Name="AuthorText";
+			InitCommand=cmd(x,SCREEN_LEFT+100;y,SCREEN_CENTER_Y+172;shadowlength,2;halign,0;zoom,.6);
 			SetCommand=function(self)
 				local song = GAMESTATE:GetCurrentSong()
 				local text
@@ -39,7 +40,14 @@ local t = Def.ActorFrame{
 			end;
 			OnCommand=cmd(playcommand,"Set");
 		};
-		-- player name
+		LoadFont("_r bold 30px")..{
+			Name="PlayerName";
+			InitCommand=cmd(x,SCREEN_LEFT+44;y,SCREEN_CENTER_Y+142;shadowlength,2;halign,0;zoom,.8);
+			SetCommand=function(self)
+				self:settext( PROFILEMAN:GetPlayerName(PLAYER_1) )
+			end;
+			OnCommand=cmd(playcommand,"Set");
+		};
 	};
 	Def.ActorFrame{
 		Name="P2Frame";
@@ -56,7 +64,8 @@ local t = Def.ActorFrame{
 			end;
 		};
 		LoadFont("_r bold 30px")..{
-			InitCommand=cmd(x,SCREEN_RIGHT-100;y,SCREEN_CENTER_Y+172;shadowlength,2;horizalign,right;zoom,.6);
+			Name="AuthorText";
+			InitCommand=cmd(x,SCREEN_RIGHT-100;y,SCREEN_CENTER_Y+172;shadowlength,2;halign,1;zoom,.6);
 			SetCommand=function(self)
 				local song = GAMESTATE:GetCurrentSong()
 				local text
@@ -74,7 +83,14 @@ local t = Def.ActorFrame{
 			end;
 			OnCommand=cmd(playcommand,"Set");
 		};
-		-- player name
+		LoadFont("_r bold 30px")..{
+			Name="PlayerName";
+			InitCommand=cmd(x,SCREEN_RIGHT-44;y,SCREEN_CENTER_Y+142;shadowlength,2;halign,1;zoom,.8);
+			SetCommand=function(self)
+				self:settext( PROFILEMAN:GetPlayerName(PLAYER_2) )
+			end;
+			OnCommand=cmd(playcommand,"Set");
+		};
 	};
 };
 
