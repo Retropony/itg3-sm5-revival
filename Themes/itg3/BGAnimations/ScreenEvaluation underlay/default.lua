@@ -27,7 +27,7 @@ local t = Def.ActorFrame{
 			local doubles = (styleType == 'StyleType_OnePlayerTwoSides' or styleType == 'StyleType_TwoPlayersSharedSides')
 			local pm = GAMESTATE:GetPlayMode()
 			local validMode = (pm == 'PlayMode_Regular' or pm == 'PlayMode_Nonstop' or pm == 'PlayMode_Oni')
-			self:visible(not doubles and pm)
+			self:visible(not doubles and validMode)
 		end;
 		OnCommand=cmd(sleep,3.5;linear,0.8;diffusealpha,1;diffuseramp;effectperiod,2;effectoffset,0.20;effectclock,"beat";effectcolor1,color("#FFFFFF00");effectcolor2,color("#FFFFFFFF"););
 		OffCommand=cmd(stoptweening;linear,0.2;diffusealpha,0);
