@@ -7,7 +7,7 @@ Midiman is planning on working on achievements.
 NoteSkins for SM5 (aside from metal2) are available in NoteSkins\dance\.
 They were ported by Jousway.
 Metal2 was not included since Jousway said it was similar to Metal+.
-Check out his site, Unlimited Stepman Works: http://zettbou.co.uk/USW/
+Check out his site, Unlimited Stepman Works: http://zettbou.co.uk/
 (metal+ is available there. check _Noteskin/SM5/Dance/.)
 
 The OpenITG materials are in the oitg\ folder.
