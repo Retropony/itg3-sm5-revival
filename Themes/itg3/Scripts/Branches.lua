@@ -38,6 +38,6 @@ end
 
 Branch.PostProfileSave = function()
 	if GAMESTATE:IsEventMode() then return SelectMusicOrCourse() end
-	if STATSMAN:GetCurStageStats():AllFailed() or GAMESTATE:GetSmallestNumStagesLeftForAnyHumanPlayer() == 0 then return "ScreenGameOver" end
+	if STATSMAN:GetCurStageStats():AllFailed() or GAMESTATE:GetSmallestNumStagesLeftForAnyHumanPlayer() == 0 then return "ScreenNameEntryTraditional" end
 	return SelectMusicOrCourse()
 end
