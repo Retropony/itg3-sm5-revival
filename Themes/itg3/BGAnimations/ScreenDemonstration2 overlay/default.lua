@@ -9,7 +9,7 @@ return Def.ActorFrame{
 		OnCommand=cmd(sleep,5;decelerate,0.5;addx,-SCREEN_WIDTH/2;sleep,5;linear,0.3;diffusealpha,0);
 	};
 	LoadActor("focus square")..{
-		InitCommand=cmd(x,SCREEN_CENTER_X-SCREEN_WIDTH/4+26;y,SCREEN_CENTER_Y+60;zoomx,1.0;zoomy,1.05;diffuseblink;EffectPeriod,0.5;diffusealpha,0;);
+		InitCommand=cmd(x,SCREEN_CENTER_X-SCREEN_WIDTH/4+26;y,SCREEN_CENTER_Y+60;zoomx,1.0;zoomy,1.05;diffuseblink;effectperiod,0.5;diffusealpha,0;);
 		OnCommand=cmd(sleep,6;linear,0.3;diffusealpha,1;sleep,4;linear,0.3;diffusealpha,0);
 	};
 
