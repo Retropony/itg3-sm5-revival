@@ -66,3 +66,12 @@ function GetRandomModifierNames(n)
 	end
 	return s
 end
+
+-- Name Entry Help text
+function GetScreenNameEntryTraditionalHelpText()
+	if GAMESTATE:AnyPlayerHasRankingFeats() then
+		-- todo: something about the select button, because arcade machines.
+		return THEME:GetString("ScreenNameEntryTraditional","HelpTextHasHighScores")
+	end
+	return THEME:GetString("ScreenNameEntryTraditional","HelpTextNoHighScores")
+end
