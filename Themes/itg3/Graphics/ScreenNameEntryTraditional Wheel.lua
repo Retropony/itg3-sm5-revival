@@ -5,6 +5,7 @@ local machineProfile = PROFILEMAN:GetMachineProfile()
 
 -- something about making scroller items
 local wheelItemFont = "_r bold 30px"
+local wheelItemFocus = cmd(diffuseshift;effectcolor1,color("1,1,0,1");effectcolor2,color("0,1,1,1"))
 
 local function MakeHighScoreWheelItem(index)
 	return Def.ActorFrame{
@@ -16,7 +17,13 @@ local function MakeHighScoreWheelItem(index)
 					local hs = param.HighScore
 
 					if hs then
-						c.Name:settext(hs:GetName())
+						local scoreName = hs:GetName()
+						if string.len(scoreName)<1 then
+							scoreName = THEME:GetMetric("HighScore","EmptyName")
+						end
+						c.Name:settext(scoreName)
+
+						-- todo: only use percent score if prefsman percentage scoring
 						c.Score:settext(FormatPercentScore(hs:GetPercentDP()))
 
 						-- format date text from "yyyy-mm-dd hh:mm:ss" into "mm/dd"
@@ -24,9 +31,9 @@ local function MakeHighScoreWheelItem(index)
 						dateText = string.gsub(string.sub(dateText,6,10),"-","/")
 						c.Date:settext(dateText)
 					else
-						c.Name:settext("please")
-						c.Score:settext("contact freem!")
-						c.Date:settext("error")
+						c.Name:settext("????")
+						c.Score:settext(FormatPercentScore(0))
+						c.Date:settext("--/--")
 					end
 
 					if param.Focus == index then
@@ -47,28 +54,26 @@ local function MakeHighScoreWheelItem(index)
 				Name="Rank",
 				Text=index+1,
 				InitCommand=cmd(x,-158;shadowlength,2),
-				FocusCommand=cmd(diffuseshift;effectcolor1,color("1,1,0,1");effectcolor2,color("0,1,1,1")),
+				FocusCommand=wheelItemFocus,
 			},
 			LoadFont(wheelItemFont)..{
 				Name="Name",
 				InitCommand=cmd(x,-89;maxwidth,80;shadowlength,2),
-				FocusCommand=cmd(diffuseshift;effectcolor1,color("1,1,0,1");effectcolor2,color("0,1,1,1")),
+				FocusCommand=wheelItemFocus,
 			},
 			LoadFont(wheelItemFont)..{
 				Name="Score",
 				InitCommand=cmd(x,87;halign,1;maxwidth,120;shadowlength,2),
-				FocusCommand=cmd(diffuseshift;effectcolor1,color("1,1,0,1");effectcolor2,color("0,1,1,1")),
+				FocusCommand=wheelItemFocus,
 			},
 			LoadFont(wheelItemFont)..{
 				Name="Date",
 				InitCommand=cmd(x,134;maxwidth,60;shadowlength,2),
-				FocusCommand=cmd(diffuseshift;effectcolor1,color("1,1,0,1");effectcolor2,color("0,1,1,1")),
+				FocusCommand=wheelItemFocus,
 			}
 		}
 	}
 end
-
--- focused item has a hardcoded cmd(diffuseshift;effectcolor1,color("1,1,0,1");effectcolor2,color("0,1,1,1"))
 
 --[[
 float HighScoreWheel::Scroll()
@@ -79,8 +84,6 @@ float HighScoreWheel::Scroll()
 	return GetTweenTimeLeft();
 }
 --]]
-
--- STATSMAN:GetStagesPlayed()
 
 return Def.ActorFrame{
 	InitCommand=cmd(fov,15),
@@ -95,6 +98,7 @@ return Def.ActorFrame{
 			self:y(math.sin(radians)*90)
 			self:z(math.cos(radians)*90)
 		end,
+		OffCommand=cmd(stoptweening),
 
 		ChangeDisplayedFeatMessageCommand=function(self,param)
 			if param.Player == Player then
@@ -102,37 +106,82 @@ return Def.ActorFrame{
 				self:SetCurrentAndDestinationItem(15)
 				self:PositionItems()
 
-				-- used later!
-				local itemToFocus = math.random(1,10)-1
-				local scrollerFocus = math.max(itemToFocus,3)
+				local itemToFocus = -1		-- "-1 means 'out of ranking'"
+				local scrollerFocus = 3		-- by default, use 3.
 
 				-- many things go on here, like getting the high scores.
+				local playedSS,playerSS,myPercentDP,myScore
+
 				if GAMESTATE:IsCourseMode() then
+					playedSS = STATSMAN:GetPlayedStageStats(1)
+					playerSS = playedSS:GetPlayerStageStats(Player)
+					myPercentDP = playerSS:GetPercentDancePoints()
+					myScore = playerSS:GetScore()
+
 					local hsl = machineProfile:GetHighScoreListIfExists(GAMESTATE:GetCurrentCourse(),GAMESTATE:GetCurrentTrail(Player))
-					local highScores = hsl:GetHighScores()
 					if hsl then
-						-- todo: add item to focus
+						local highScores = hsl:GetHighScores()
+
+						-- find focused item before attempting an update
+						for i=1,10 do
+							local hs = highScores[i]
+							if hs then
+								if hs:IsFillInMarker() then
+									-- check if this is the proper player
+									local hsName = hs:GetName()
+									if string.find(hsName,PlayerNumberToString(Player)) then
+										if hs:GetPercentDP() == myPercentDP and hs:GetScore() == myScore then
+											itemToFocus = i-1
+										end
+									end
+								end
+							end
+						end
+						scrollerFocus = math.max(itemToFocus,3)
+
+						-- update all wheel items
 						for i=0,9 do
-							MESSAGEMAN:Broadcast("UpdateWheelItem",{Index=i,HighScore=highScores[i+1]})
+							MESSAGEMAN:Broadcast("UpdateWheelItem",{Player=param.Player,Index=i,HighScore=highScores[i+1],Focus=itemToFocus})
 						end
 					end
 				else
 					-- get high score list for current song/steps combo
 					local stagesAgo = (STATSMAN:GetStagesPlayed() - (param.NewIndex-1))
-					local playedSS = STATSMAN:GetPlayedStageStats(stagesAgo)
-					local playerSS = playedSS:GetPlayerStageStats(Player)
+					playedSS = STATSMAN:GetPlayedStageStats(stagesAgo)
+					playerSS = playedSS:GetPlayerStageStats(Player)
 					local songs = playedSS:GetPlayedSongs()
 					local steps = playerSS:GetPlayedSteps()
 					local hsl = machineProfile:GetHighScoreListIfExists(songs[1],steps[1])
 
+					-- check player fill in (#P1#, #P2#), player percentDP, and player iScore
+					-- versus high score list entry in order to find itemToFocus
+					myPercentDP = playerSS:GetPercentDancePoints()
+					myScore = playerSS:GetScore()
+
 					if hsl then
 						local highScores = hsl:GetHighScores()
+
+						-- find focused item before attempting an update
+						for i=1,10 do
+							local hs = highScores[i]
+							if hs then
+								if hs:IsFillInMarker() then
+									-- check if this is the proper player
+									local hsName = hs:GetName()
+									if string.find(hsName,PlayerNumberToString(Player)) then
+										if hs:GetPercentDP() == myPercentDP and hs:GetScore() == myScore then
+											itemToFocus = i-1
+										end
+									end
+								end
+							end
+						end
+						scrollerFocus = math.max(itemToFocus,3)
+
 						-- update all wheel items
 						for i=0,9 do
 							MESSAGEMAN:Broadcast("UpdateWheelItem",{Player=param.Player,Index=i,HighScore=highScores[i+1],Focus=itemToFocus})
 						end
-					else
-						
 					end
 				end
 
