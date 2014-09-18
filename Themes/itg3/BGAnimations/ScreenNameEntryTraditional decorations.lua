@@ -14,8 +14,28 @@ for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
 end
 
 -- Keyboard
+for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
+	local MetricsName = "Keyboard" .. PlayerNumberToString(pn);
+	t[#t+1] = LoadActor(THEME:GetPathG("ScreenNameEntryTraditional","Keyboard"),pn)..{
+		InitCommand=function(self)
+			self:player(pn)
+			self:name(MetricsName)
+			ActorUtil.LoadAllCommandsAndSetXY(self,Var "LoadingScreen")
+		end
+	}
+end
 
 -- Selection (Entered name)
+for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
+	local MetricsName = "Selection" .. PlayerNumberToString(pn);
+	t[#t+1] = LoadActor(THEME:GetPathG("ScreenNameEntryTraditional","Selection"),pn)..{
+		InitCommand=function(self)
+			self:player(pn)
+			self:name(MetricsName)
+			ActorUtil.LoadAllCommandsAndSetXY(self,Var "LoadingScreen")
+		end
+	}
+end
 
 -- Wheel
 for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
@@ -30,7 +50,6 @@ for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
 end
 
 -- Score
---[[
 for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
 	local MetricsName = "Score" .. PlayerNumberToString(pn);
 	t[#t+1] = LoadActor(THEME:GetPathG("ScreenNameEntryTraditional","Score"),pn)..{
@@ -41,7 +60,6 @@ for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
 		end
 	}
 end
---]]
 
 -- Grade
 
@@ -59,7 +77,45 @@ end
 
 -- DifficultyDisplay
 
+
 -- Banner
-t[#t+1] = StandardDecorationFromFile("Banner","Banner")
+table.insert(t,StandardDecorationFromFile("Banner","Banner"))
+
+table.insert(t,Def.Actor{
+	Name="MasterController",
+
+	-- timer message
+	MenuTimerExpiredMessageCommand = function(self)
+		for pn in ivalues(PlayerNumber) do
+			SCREENMAN:GetTopScreen():Finish(pn)
+		end
+	end,
+
+	-- inputs
+	CodeMessageCommand=function(self,param)
+		local ts = SCREENMAN:GetTopScreen()
+		-- check if player is done entering name, or if screen is transitioning
+		if ts:GetFinalized(param.PlayerNumber) or ts:IsTransitioning() then
+			return
+		end
+
+		-- otherwise, handle inputs.
+		-- param.PlayerNumber
+		-- param.Name: "Left","Right","Backspace","Enter"
+
+		if param.Name == "Left" or param.Name == "AltLeft" then
+			MESSAGEMAN:Broadcast("KeyboardLeft",{Player=param.PlayerNumber})
+		elseif param.Name == "Right" or param.Name == "AltRight" then
+			MESSAGEMAN:Broadcast("KeyboardRight",{Player=param.PlayerNumber})
+		elseif param.Name == "Backspace" then
+			ts:Backspace(param.PlayerNumber)
+			MESSAGEMAN:Broadcast("UpdateSelection",{Player=param.PlayerNumber})
+		elseif param.Name == "Enter" then
+			MESSAGEMAN:Broadcast("KeyboardEnter",{Player=param.PlayerNumber})
+
+			-- todo: run any checks needed here?
+		end
+	end,
+})
 
 return t

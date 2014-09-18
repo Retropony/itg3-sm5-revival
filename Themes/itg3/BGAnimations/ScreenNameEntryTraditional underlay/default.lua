@@ -8,6 +8,8 @@ local t = Def.ActorFrame{
 		OnCommand=cmd(decelerate,0.3;addy,200)
 	},
 
+	-- todo: don't show player crap if they didn't rank in
+
 	Def.ActorFrame{
 		Name="P1Side",
 		InitCommand=cmd(visible,GAMESTATE:IsHumanPlayer(PLAYER_1)),
@@ -51,20 +53,6 @@ local t = Def.ActorFrame{
 		OnCommand=cmd(sleep,1;linear,0.4;diffusealpha,1;diffuseramp;effectperiod,1;effectoffset,0.20;effectclock,"beat";diffuseramp;effectcolor1,color("#FFFFFF00");effectcolor2,color("#FFFFFFFF");effectperiod,2;),
 		OffCommand=cmd(linear,0.2;diffusealpha,0)
 	}
-}
-
--- xxx: blatantly stolen from sm5 _fallback
-t[#t+1] = Def.Actor {
-	MenuTimerExpiredMessageCommand = function(self, param)
-		for pn in ivalues(PlayerNumber) do
-			SCREENMAN:GetTopScreen():Finish(pn)
-		end
-	end,
-	CodeMessageCommand=function(self,param)
-		if param.Name == "Enter" then
-			SCREENMAN:GetTopScreen():Finish(param.PlayerNumber)
-		end
-	end
 }
 
 return t
