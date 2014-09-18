@@ -13,18 +13,20 @@ local DifficultyToFrame = {
 
 return LoadActor("DifficultyIcon")..{
 	InitCommand=cmd(animate,false),
-	BeginCommand=cmd(playcommand,"Set"),
-	SetCommand=function(self)
-		if GAMESTATE:IsCourseMode() then
-			-- derive from trail difficulty in course mode
-			local trail = GAMESTATE:GetCurrentTrail(Player)
-			local difficulty = trail:GetDifficulty()
-			self:setstate(DifficultyToFrame[difficulty])
-		else
-			-- derive from steps difficulty in normal mode
-
-			-- todo: this is hardcoded bullshit
-			self:setstate(math.random(1,6)-1)
+	ChangeDisplayedFeatMessageCommand=function(self,param)
+		if param.Player == Player then
+			if GAMESTATE:IsCourseMode() then
+				-- derive from trail difficulty in course mode
+				local trail = GAMESTATE:GetCurrentTrail(Player)
+				local difficulty = trail:GetDifficulty()
+				self:setstate(DifficultyToFrame[difficulty])
+			else
+				local stagesAgo = (STATSMAN:GetStagesPlayed() - (param.NewIndex-1))
+				local playedSS = STATSMAN:GetPlayedStageStats(stagesAgo)
+				local playerSS = playedSS:GetPlayerStageStats(Player)
+				local steps = playerSS:GetPlayedSteps()
+				self:setstate(DifficultyToFrame[steps[1]:GetDifficulty()])
+			end
 		end
-	end,
+	end
 }

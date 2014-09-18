@@ -76,15 +76,30 @@ for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
 end
 
 -- DifficultyDisplay
-
+for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
+	local MetricsName = "DifficultyDisplay" .. PlayerNumberToString(pn);
+end
 
 -- Banner
 table.insert(t,StandardDecorationFromFile("Banner","Banner"))
 
+-- current displayed feat (maximum is controlled by m_FeatDisplay[pn].size())
+local curFeatNumber = {
+	PlayerNumber_P1 = 1,
+	PlayerNumber_P2 = 1
+}
+
+-- Master Controller
 table.insert(t,Def.Actor{
 	Name="MasterController",
+	BeginCommand=function(self)
+		for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
+			MESSAGEMAN:Broadcast("ChangeDisplayedFeat",{Player=pn,NewIndex=curFeatNumber[pn]})
+		end
+	end,
+	OnCommand=cmd(queuecommand,"RunFeat"),
 
-	-- timer message
+	-- Menu Timer message
 	MenuTimerExpiredMessageCommand = function(self)
 		for pn in ivalues(PlayerNumber) do
 			SCREENMAN:GetTopScreen():Finish(pn)
@@ -115,6 +130,25 @@ table.insert(t,Def.Actor{
 
 			-- todo: run any checks needed here?
 		end
+	end,
+
+	-- only run the feat update in non-course modes
+	RunFeatCommand=function(self)
+		if not GAMESTATE:IsCourseMode() then
+			self:sleep(THEME:GetMetric("ScreenNameEntryTraditional","FeatInterval"))
+			self:queuecommand("DoChange")
+		end
+	end,
+	-- broadcast a message in order for various theme elements to cycle.
+	DoChangeCommand=function(self)
+		for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
+			local curIndex = curFeatNumber[pn]
+			local nextIndex = (curIndex%STATSMAN:GetStagesPlayed())+1
+
+			MESSAGEMAN:Broadcast("ChangeDisplayedFeat",{Player=pn,NewIndex=nextIndex})
+			curFeatNumber[pn] = nextIndex
+		end
+		self:queuecommand("RunFeat")
 	end,
 })
 
