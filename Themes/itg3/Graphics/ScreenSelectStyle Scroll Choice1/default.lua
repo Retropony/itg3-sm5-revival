@@ -6,7 +6,7 @@ return Def.ActorFrame{
 		self:linear(0.5);
 		local bHasFocus=math.abs(self:GetZoomZ()-1.1)<0.01;
 		if bHasFocus then
-			self:x(0); self:y(0); self:z(200);
+			self:x(0); self:y(0);
 			self:diffuse(color("1,1,1,1"));
 			self:zoom(1);
 			self:glowblink();
@@ -26,12 +26,24 @@ return Def.ActorFrame{
 		GainFocusCommand=cmd(wag;effectmagnitude,0,10,0);
 		LoseFocusCommand=cmd(stopeffect);
 		LoadActor(THEME:GetPathG("_platform","home single"))..{
-			InitCommand=cmd(ztest,true;rotationx,30);
+			InitCommand=cmd(rotationx,30);
 		};
 	};
 	LoadActor("title")..{
-		InitCommand=cmd(x,60;y,-116;z,30;shadowlength,4;ztest,true);
+		InitCommand=cmd(x,60;y,-116;shadowlength,4);
 		EnabledCommand=cmd(stopeffect);
 		DisabledCommand=cmd(diffuseshift;effectcolor1,color("0,0,0,1");effectcolor2,color("0,0,0,1"));
+	};
+	LoadActor(THEME:GetPathG("","blueflare"))..{
+		InitCommand=cmd(x,60;y,-116;blend,Blend.Add;diffusealpha,0);
+		GainFocusCommand=cmd(finishtweening;zoom,0;diffusealpha,0;zoomx,7;zoomy,4;diffusealpha,1;linear,.2;zoomy,0;diffusealpha,0);
+		LoseFocusCommand=cmd(diffusealpha,0);
+		OffCommand=cmd(diffusealpha,0);
+	};
+	LoadActor(THEME:GetPathG("","blueflare"))..{
+		InitCommand=cmd(x,60;y,-116;blend,Blend.Add;diffusealpha,0);
+		GainFocusCommand=cmd(finishtweening;zoom,0;diffusealpha,0;zoomx,7;zoomy,4;diffusealpha,1;linear,.4;zoomy,0;diffusealpha,0);
+		LoseFocusCommand=cmd(diffusealpha,0);
+		OffCommand=cmd(diffusealpha,0);
 	};
 };
