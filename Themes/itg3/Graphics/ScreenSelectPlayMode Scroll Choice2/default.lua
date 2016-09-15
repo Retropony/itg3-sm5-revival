@@ -32,4 +32,16 @@ return Def.ActorFrame{
 	LoadActor("title")..{
 		InitCommand=cmd(x,-90;y,-70;zbuffer,true);
 	};
+	LoadActor(THEME:GetPathG("","blueflare"))..{
+		InitCommand=cmd(x,-82;y,-70;blend,Blend.Add;diffusealpha,0);
+		GainFocusCommand=cmd(finishtweening;zoom,0;diffusealpha,0;zoomx,7;zoomy,4;diffusealpha,1;linear,.2;zoomy,0;diffusealpha,0);
+		LoseFocusCommand=cmd(diffusealpha,0);
+		OffCommand=cmd(diffusealpha,0);
+	};
+	LoadActor(THEME:GetPathG("","blueflare"))..{
+		InitCommand=cmd(x,-82;y,-70;blend,Blend.Add;diffusealpha,0);
+		GainFocusCommand=cmd(finishtweening;zoom,0;diffusealpha,0;zoomx,7;zoomy,4;diffusealpha,1;linear,.4;zoomy,0;diffusealpha,0);
+		LoseFocusCommand=cmd(diffusealpha,0);
+		OffCommand=cmd(diffusealpha,0);
+	};
 };

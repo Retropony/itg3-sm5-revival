@@ -126,6 +126,13 @@ local t = Def.ActorFrame{
 		InitCommand=cmd(Center;FullScreen;);
 		OnCommand=cmd(diffusealpha,0;sleep,0.1;accelerate,0.5;diffusealpha,1;sleep,0.2;decelerate,0.5;diffusealpha,0);
 	};
+	LoadActor(THEME:GetPathS("","_logo"))..{
+		OnCommand=cmd(play);
+	};
+	LoadActor(THEME:GetPathS("_Menu","music"))..{
+		OnCommand=cmd(play);
+		OffCommand=cmd(stop);
+	};
 };
 
 return t;

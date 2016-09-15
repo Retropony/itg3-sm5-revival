@@ -1,17 +1,5 @@
 -- ScreenSelectPlayMode Icon Choice3
 return Def.ActorFrame{
-	LoadActor(THEME:GetPathG("","blueflare"))..{
-		InitCommand=cmd(x,SCREEN_CENTER_X-70;CenterY;blend,Blend.Add;diffusealpha,0);
-		GainFocusCommand=cmd(finishtweening;zoom,0;diffusealpha,0;zoomx,7;zoomy,4;diffusealpha,1;linear,.2;zoomy,0;diffusealpha,0);
-		LoseFocusCommand=cmd(diffusealpha,0);
-		OffCommand=cmd(diffusealpha,0);
-	};
-	LoadActor(THEME:GetPathG("","blueflare"))..{
-		InitCommand=cmd(x,SCREEN_CENTER_X-70;CenterY;blend,Blend.Add;diffusealpha,0);
-		GainFocusCommand=cmd(finishtweening;zoom,0;diffusealpha,0;zoomx,7;zoomy,4;diffusealpha,1;linear,.4;zoomy,0;diffusealpha,0);
-		LoseFocusCommand=cmd(diffusealpha,0);
-		OffCommand=cmd(diffusealpha,0);
-	};
 	LoadFont("_r bold glow 30px")..{
 		Text="Play longer, but look out\nfor scripted modifiers";
 		InitCommand=cmd(x,SCREEN_CENTER_X-88;y,SCREEN_CENTER_Y+95;zoomx,.8;zoomy,.7;maxwidth,300;horizalign,center;shadowlength,0);
