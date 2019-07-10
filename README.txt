@@ -2,7 +2,7 @@ Welcome to the new version of the ITG3 theme port for StepMania 5, originally ma
 
 The original project can be found here: https://github.com/freem/itg3theme
 
-We'll try to finish the theme, abandonned since 2 years, and make it working with StepMania 5.0 and, later, StepMania 5.1.
+We'll try to finish the theme, abandoned since 2 years, and make it working with StepMania 5.0 and, later, StepMania 5.1.
 
 The theme is in Themes\itg3\.
 Most of the porting work has been done by AJ Kelly (so far).
